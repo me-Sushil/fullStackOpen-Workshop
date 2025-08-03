@@ -1,14 +1,13 @@
+import ReactDOM from "react-dom/client";
+import React from "react";
+import SayHello from "./SayHello";
+
 const react = document.getElementById("root");
 const reactRoot = ReactDOM.createRoot(react);
 
-
-const SayHello =(props)=>{
-return React.createElement("p", {class:"myP"}, `Hello ${props.name}`);
-}
-
 const App=()=>{
- const myDiv = React.createElement("div", {class:"mydiv"}, [
-React.createElement(SayHello, {naem:"Sushil"}),
+ const myDiv = React.createElement("div", {}, [
+React.createElement(SayHello, {name:"Sushil"}),
 React.createElement(SayHello, {name:"sudesh"}),
 React.createElement(SayHello, {name:"sugam"})
  ])
