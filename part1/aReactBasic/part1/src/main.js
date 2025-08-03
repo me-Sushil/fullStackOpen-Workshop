@@ -8,8 +8,8 @@ const reactRoot = ReactDOM.createRoot(react);
 const App=()=>{
  const myDiv = React.createElement("div", {}, [
 React.createElement(SayHello, {name:"Sushil"}),
-React.createElement(SayHello, {name:"sudesh"}),
-React.createElement(SayHello, {name:"sugam"})
+React.createElement(SayHello, {name:"Sudesh"}),
+React.createElement(SayHello, {name:"Sugam"})
  ])
   return myDiv;
 } 
