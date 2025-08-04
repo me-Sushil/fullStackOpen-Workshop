@@ -2,12 +2,12 @@
 
 const App = () => {
   //const [counter, setCounter] = useState(0);
-  const handleClick=()=>{
-    console.log("clicked")
-  }
+  // const handleClick=()=>{
+  //   console.log("clicked")
+  // }
   return (
     <>
-      <button onClick={handleClick}>Plus</button>
+      <button onClick={()=>{console.log("clicked")}}>Plus</button>
     </>
   );
 };
