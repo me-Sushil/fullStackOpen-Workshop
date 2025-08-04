@@ -8,7 +8,7 @@ const App = () => {
   const handleMinus=()=>{if(counter > 0){setCounter(counter -1);}}
   return (
     <>
-    <p>Count is: {counter}</p>
+    <Display count ={counter} />
       <button onClick={handlePlus}>Plus</button>
       <button onClick={handleMinus}>Minus</button>
       <button onClick={handleReset}>Reset</button>
