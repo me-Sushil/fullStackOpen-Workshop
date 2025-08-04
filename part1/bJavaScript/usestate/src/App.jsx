@@ -1,14 +1,13 @@
-import { useState } from "react";
+// import { useState } from "react";
 
 const App = () => {
-  const [counter, setCounter] = useState(0);
-  console.log("counter", counter);
-  setTimeout(() => {
-    setCounter(counter + 1);
-  }, 1000);
+  //const [counter, setCounter] = useState(0);
+  const handleClick=()=>{
+    console.log("clicked")
+  }
   return (
     <>
-      <p>Count is {counter}</p>
+      <button onClick={handleClick}>Plus</button>
     </>
   );
 };
