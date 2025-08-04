@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Display from "./Display";
+import Button from "./Button";
 
 const App = () => {
   const [counter, setCounter] = useState(0);
