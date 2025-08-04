@@ -10,6 +10,7 @@ const App = () => {
     <>
     <p>Count is: {counter}</p>
       <button onClick={()=>{setCounter(counter+1)}}>Plus</button>
+      <button onClick={()=>{setCounter(0)}}>Reset</button>
     </>
   );
 };
