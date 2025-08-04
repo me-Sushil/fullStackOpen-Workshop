@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Display from "./Display";
 
 const App = () => {
   const [counter, setCounter] = useState(0);

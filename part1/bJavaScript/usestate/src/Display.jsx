@@ -1,7 +1,7 @@
-const Display=({counter})=>{
+const Display=({count})=>{
     return(
         <>
-        <p>Count is: {counter}</p>
+        <p>Count is: {count}</p>
         </>
     )
 }
