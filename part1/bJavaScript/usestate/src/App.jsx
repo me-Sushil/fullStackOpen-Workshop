@@ -1,13 +1,14 @@
-// import { useState } from "react";
+import { useState } from "react";
 
 const App = () => {
-  //const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(0);
+  console.log(counter);
   // const handleClick=()=>{
   //   console.log("clicked")
   // }
   return (
     <>
-      <button onClick={()=>{console.log("clicked")}}>Plus</button>
+      <button onClick={()=>{setCounter(counter+1)}}>Plus</button>
     </>
   );
 };
