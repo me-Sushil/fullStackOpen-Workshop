@@ -1,8 +1,12 @@
-const SayHello = (props) => {
-  //we dont need thid in jsx
+const SayHello = ({person}) => {
+  //we dont need this in jsx
   //React.createElement("p", {class:"myP"}, `Hello ${props.name}`);
+
+  function getFullName(){
+    return `${person.fName} ${person.lName}`;
+  }
   return(
-  <p>Hello {props.fName} {props.lName}</p>
+  <p>Hello {getFullName()}</p>
   )
 };
 
