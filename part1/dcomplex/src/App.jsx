@@ -6,13 +6,19 @@ function App() {
   const [click, handleClick] = useState({left:0, right:0})
 
   const handleLeftClick=()=>{
-    
-    handleClick(click.left + 1);
-
+    const newClick={
+      left: click.left+1,
+      right: click.right
+    }
+    handleClick(newClick);
   }
 
   const handleRightClick=()=>{
-    handleClick(click.right + 1);
+    const newClick = {
+      left: click.left,
+      right: click.right+1
+    }
+    handleClick(newClick);
   }
 
   return (
@@ -22,7 +28,7 @@ function App() {
         <button onClick={handleLeftClick}>Left BTN</button>
       </div>
       <div>
-        <p>The left btn is clicked {click.right} times</p>
+        <p>The right btn is clicked {click.right} times</p>
         <button onClick={handleRightClick}>Right BTN</button>
       </div>
     </>
