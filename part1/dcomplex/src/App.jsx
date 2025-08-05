@@ -1,4 +1,6 @@
 import { useState } from "react";
+import History from "./History";
+import Button from "./Button";
 
 function App() {
   // const [left, setLeft] = useState(0);
@@ -18,8 +20,8 @@ function App() {
 
   const handleRightClick=()=>{
     setAll(allClicks.concat("R"));
-    handleClick({...click, right:click.right+1});
-    console.log("right click",click.right)
+    // handleClick({...click, right:click.right+1});
+    // console.log("right click",click.right)
 
     const updateRight = {...click, right:click.right+1};
     handleClick(updateRight);
@@ -30,12 +32,16 @@ function App() {
     <>
       <div>
         <p>update arr {allClicks.join(" ")}</p>
-        <p>The left btn is clicked {click.left} times</p>
+
+        <Button onClick={handleLeftClick} text="Hello Left"/>
+        <Button onClick={handleRightClick} text="Hello Right"/>
+        {/* <p>The left btn is clicked {click.left} times</p>
         <button onClick={handleLeftClick}>Left BTN</button>
         <p>The right btn is clicked {click.right} times</p>
-        <button onClick={handleRightClick}>Right BTN</button>
+        <button onClick={handleRightClick}>Right BTN</button> */}
         <p>The Total {total}</p>
       </div>
+      <History allClicks={allClicks}/>
     </>
   );
 }
