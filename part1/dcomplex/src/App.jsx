@@ -6,19 +6,11 @@ function App() {
   const [click, handleClick] = useState({left:0, right:0})
 
   const handleLeftClick=()=>{
-    const newClick={
-      left: click.left+1,
-      right: click.right
-    }
-    handleClick(newClick);
+    handleClick({...click, left: click.left+1});
   }
 
   const handleRightClick=()=>{
-    const newClick = {
-      left: click.left,
-      right: click.right+1
-    }
-    handleClick(newClick);
+    handleClick({...click, right:click.right+1});
   }
 
   return (
