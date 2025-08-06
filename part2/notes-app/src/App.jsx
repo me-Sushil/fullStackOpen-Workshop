@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import Note from "./components/Note";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function App({ notes }) {
   return (
     <>
-      <p> Click on </p>
+      <p>App component</p>
+      <ul>
+      {notes.map((note) => {
+        return <Note key={note.id} note={note.content}/>
+      })}
+      </ul>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
