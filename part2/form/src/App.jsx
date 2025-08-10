@@ -10,6 +10,7 @@ const App = () => {
   useEffect(() => {
     axios.get("http://localhost:3001/notes").then((response) => {
       console.log("promise fulfilled");
+      console.log(response.data);
       setNotes(response.data);
     });
   }, []);
@@ -34,11 +35,12 @@ const App = () => {
     console.log("form submit", event.target);
     const newObj = {
       id: notes.length + 1,
-      note: newnote,
+      content: newnote,
       important: Math.random() > 0.5,
     };
     setNotes(notes.concat(newObj));
     setNewNote("");
+    axios.post("http://localhost:3001/notes", newObj);
   }
 
   function handleInput(event) {

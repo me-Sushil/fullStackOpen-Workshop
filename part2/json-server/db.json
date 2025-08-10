@@ -16,8 +16,14 @@
       "important": true
     }
   ],
-  "students":[
-    {"id":"1", "name":"sushil"},
-    {"id":"2", "name":"sushila"}
+  "students": [
+    {
+      "id": "1",
+      "name": "sushil"
+    },
+    {
+      "id": "2",
+      "name": "sushila"
+    }
   ]
 }
