@@ -1,8 +1,7 @@
-
 const Note=({note})=>{
     return(
         <>
-        <li>{note}</li>
+         <li>{note}</li> 
         </>
 
     )
