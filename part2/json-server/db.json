@@ -15,5 +15,9 @@
       "content": "GET and POST are the most important methods of HTTP protocol",
       "important": true
     }
+  ],
+  "students":[
+    {"id":"1", "name":"sushil"},
+    {"id":"2", "name":"sushila"}
   ]
 }
