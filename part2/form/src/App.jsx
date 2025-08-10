@@ -39,9 +39,10 @@ const App = () => {
       important: Math.random() > 0.5,
     };
     setNotes(notes.concat(newObj));
-    setNewNote("");
     axios.post("http://localhost:3001/notes", newObj).then((response) => {
-      console.log(response);
+      console.log(response.data);
+      setNotes(notes.concat(response.data))
+      setNewNote("");
     });
   }
 
