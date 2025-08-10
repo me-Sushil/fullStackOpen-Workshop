@@ -3,12 +3,12 @@
     {
       "id": "1",
       "content": "HTML is easy",
-      "important": true
+      "important": false
     },
     {
       "id": "2",
       "content": "Browser can execute only JavaScript",
-      "important": false
+      "important": true
     },
     {
       "id": "3",
@@ -16,24 +16,19 @@
       "important": true
     },
     {
-      "id": "df01",
-      "content": "sushil is the best coder",
+      "id": "2c46",
+      "content": "useState and useEffect is importent topic in react",
       "important": true
     },
     {
-      "id": "e4c9",
-      "content": "hello bro",
-      "important": false
-    },
-    {
-      "id": "2a9a",
-      "content": "hi broooo",
-      "important": false
-    },
-    {
-      "id": "5fe8",
-      "content": "sdsdsd",
+      "id": "3805",
+      "content": "React is easy than javascript",
       "important": true
+    },
+    {
+      "id": "bc3b",
+      "content": "React use axios, fetch to get, post, put, delete data ",
+      "important": false
     }
   ],
   "students": [
