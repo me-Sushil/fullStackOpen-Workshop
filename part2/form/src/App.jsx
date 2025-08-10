@@ -34,13 +34,15 @@ const App = () => {
     event.preventDefault();
     console.log("form submit", event.target);
     const newObj = {
-      id: notes.length + 1,
+      //id: notes.length + 1,
       content: newnote,
       important: Math.random() > 0.5,
     };
     setNotes(notes.concat(newObj));
     setNewNote("");
-    axios.post("http://localhost:3001/notes", newObj);
+    axios.post("http://localhost:3001/notes", newObj).then((response) => {
+      console.log(response);
+    });
   }
 
   function handleInput(event) {
