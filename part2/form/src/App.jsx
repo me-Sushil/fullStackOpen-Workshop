@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import Note from "./component/Note";
-import noteService from "./services/notes";
+// import noteService from "./services/notes";
+import * as noteService from "./services/notes";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newnote, setNewNote] = useState("");
-  const [showAll, setShowALl] = useState(true);
+  const [showAll, setShowAll] = useState(true);
 
   useEffect(() => {
-    noteService
-    .getAll()
-    .then((response)=>{
-      setNotes(response.data)
+   noteService.getAll()
+    .then((initialNotes)=>{
+      setNotes(initialNotes)
+      console.log(initialNotes,"initialNotes")
     })
     // axios.get("http://localhost:3001/notes").then((response) => {
     //   console.log("promise fulfilled");
@@ -43,12 +44,12 @@ const App = () => {
       content: newnote,
       important: Math.random() > 0.5,
     };
-    setNotes(notes.concat(newObj));
+    // setNotes(notes.concat(newObj));
 
     noteService
     .create(newObj)
-    .then((response)=>{
-      setNotes(notes.concat(response.data));
+    .then((returnedNote )=>{
+      setNotes(notes.concat(returnedNote ));
       setNewNote("");
     })
     // axios.post("http://localhost:3001/notes", newObj).then((response) => {
@@ -65,8 +66,8 @@ const App = () => {
 
     noteService
     .update(id, changedNote)
-    .then((response)=>{
-      setNotes(notes.map((note) => (note.id !== id ? note : response.data)));
+    .then((returnedNote )=>{
+      setNotes(notes.map((note) => (note.id !== id ? note : returnedNote )));
     })
 
     // axios.put(url, changedNote).then((response) => {
@@ -88,10 +89,10 @@ const App = () => {
     return function () {
       console.log("component is unmount");
     };
-  }, [showAllVariable]);
+  }, []);
 
   const handleShowFilter = () => {
-    setShowALl(!showAll);
+    setShowAll(!showAll);
   };
 
   return (
