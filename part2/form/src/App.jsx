@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Note from "./component/Note";
-// import noteService from "./services/notes";
 import  noteService from "./services/notes";
 
 const App = () => {
@@ -68,7 +67,10 @@ const App = () => {
     .update(id, changedNote)
     .then((returnedNote )=>{
       setNotes(notes.map((note) => (note.id !== id ? note : returnedNote )));
-    })
+    }).catch((error) => {
+      alert(`${error} The note '${note.content}' was already deleted from server`);
+      setNotes(notes.filter((n) => n.id !== id));
+    });
 
     // axios.put(url, changedNote).then((response) => {
     //   setNotes(notes.map((note) => (note.id !== id ? note : response.data)));
