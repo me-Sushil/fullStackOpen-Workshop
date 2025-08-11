@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import Note from "./component/Note";
-import  noteService from "./services/notes";
+import noteService from "./services/notes";
 import "./index.css";
+import Notification from "./component/Notification";
+import Footer from "./component/Footer";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newnote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("some error happened...");
 
   useEffect(() => {
-   noteService.getAll()
-    .then((initialNotes)=>{
-      setNotes(initialNotes)
-      console.log(initialNotes,"initialNotes")
-    })
+    noteService.getAll().then((initialNotes) => {
+      setNotes(initialNotes);
+      console.log(initialNotes, "initialNotes");
+    });
     // axios.get("http://localhost:3001/notes").then((response) => {
     //   console.log("promise fulfilled");
     //   console.log(response.data);
@@ -46,12 +48,10 @@ const App = () => {
     };
     // setNotes(notes.concat(newObj));
 
-    noteService
-    .create(newObj)
-    .then((returnedNote )=>{
-      setNotes(notes.concat(returnedNote ));
+    noteService.create(newObj).then((returnedNote) => {
+      setNotes(notes.concat(returnedNote));
       setNewNote("");
-    })
+    });
     // axios.post("http://localhost:3001/notes", newObj).then((response) => {
     //   console.log(response.data);
     //   setNotes(notes.concat(response.data));
@@ -65,13 +65,19 @@ const App = () => {
     const changedNote = { ...note, important: !note.important };
 
     noteService
-    .update(id, changedNote)
-    .then((returnedNote )=>{
-      setNotes(notes.map((note) => (note.id !== id ? note : returnedNote )));
-    }).catch((error) => {
-      alert(`${error} The note '${note.content}' was already deleted from server`);
-      setNotes(notes.filter((n) => n.id !== id));
-    });
+      .update(id, changedNote)
+      .then((returnedNote) => {
+        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)));
+      })
+      .catch((error) => {
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server ${error}`
+        );
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+        setNotes(notes.filter((n) => n.id !== id));
+      });
 
     // axios.put(url, changedNote).then((response) => {
     //   setNotes(notes.map((note) => (note.id !== id ? note : response.data)));
@@ -101,6 +107,7 @@ const App = () => {
   return (
     <>
       <h1>My Notes</h1>
+      <Notification message={errorMessage} />
       <button onClick={handleShowFilter}>
         Show {showAll ? "important" : "all"}
       </button>
@@ -117,6 +124,7 @@ const App = () => {
         <input placeholder="Type here" value={newnote} onChange={handleInput} />
         <button>submit</button>
       </form>
+       <Footer />
     </>
   );
 };
