@@ -1,7 +1,7 @@
-const http = require('http')
+const http = require('http')//it import the http package,  no need to install it's build in package
 
 const app = http.createServer((request, response) => {
-  response.writeHead(200, { 'Content-Type': 'text/plain' })
+  response.writeHead(404, { 'Content-Type': 'text/notplain' })
   response.end('Hello World')
 })
 
