@@ -1,1 +1,10 @@
 delete http://localhost:3001/api/notes/2
+
+####
+
+post http://localhost:3001/api/notes/
+content-type:application/json
+{
+    "content": "JavaScript is easy",
+    "important": true,
+}
