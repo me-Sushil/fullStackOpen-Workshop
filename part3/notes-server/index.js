@@ -35,7 +35,11 @@ app.get("/api/notes", (request, response)=>{
 app.get("/api/notes/:id", (request, response)=>{
     const id = request.params.id;
     const responseid = notes.find(note=> note.id === id);
+    if(responseid){
     response.json(responseid);
+    }else{
+        response.status(404).end();
+    }
 })
 
 const PORT = 3001
