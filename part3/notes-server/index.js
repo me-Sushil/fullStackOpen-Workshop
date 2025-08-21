@@ -3,13 +3,15 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-
-function myMiddleWare(_,_,next){
-    console.log("this is middleware");
-    next();
+const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
 }
 
-app.use(myMiddleWare);
+app.use(requestLogger);
 
 
 
@@ -77,6 +79,12 @@ app.post("/api/notes/", (request, response) => {
   notes.push(newNote);
   response.json(notes);
 });
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
+app.use(unknownEndpoint)
 
 const PORT = 3001;
 app.listen(PORT);
