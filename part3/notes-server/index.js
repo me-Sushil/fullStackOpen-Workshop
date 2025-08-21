@@ -32,15 +32,21 @@ app.get("/api/notes", (request, response)=>{
     response.json(notes)
 })
 
-app.get("/api/notes/:id", (request, response)=>{
-    const id = request.params.id;
-    const responseid = notes.find(note=> note.id === id);
+app.get("/api/notes/:noteid", (request, response)=>{
+    const nid = request.params.noteid;
+    const responseid = notes.find(note=> note.id === nid);
     if(responseid){
     response.json(responseid);
     }else{
         response.status(404).end();
     }
 })
+
+app.delete("/api/notes/:noteid", (request, response)=>{
+    const nid = request.params.noteid;
+    notes = notes.filter(note=> note.id !== nid);
+    response.status(204).end();
+} )
 
 const PORT = 3001
 app.listen(PORT)
