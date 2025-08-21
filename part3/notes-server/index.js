@@ -52,8 +52,12 @@ app.delete("/api/notes/:noteid", (request, response) => {
 
 app.post("/api/notes/", (request, response) => {
   const data = request.body;
-  data.id = String(notes.length + 1);
-  notes.push(data);
+  const newNote = {
+    content: data.content,
+    important: data.important || false ,
+    id : String(notes.length + 1)
+  }
+  notes.push(newNote);
   response.json(notes);
 });
 
