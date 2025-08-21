@@ -51,10 +51,10 @@ app.delete("/api/notes/:noteid", (request, response) => {
 });
 
 app.post("/api/notes/", (request, response) => {
-   const data = request.body;
-notes.push(data);
-response.json(notes);
-
+  const data = request.body;
+  data.id = String(notes.length + 1);
+  notes.push(data);
+  response.json(notes);
 });
 
 const PORT = 3001;
