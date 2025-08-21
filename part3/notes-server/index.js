@@ -3,6 +3,16 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
+
+function myMiddleWare(_,_,next){
+    console.log("this is middleware");
+    next();
+}
+
+app.use(myMiddleWare);
+
+
+
 let notes = [
   {
     id: "1",
@@ -52,6 +62,13 @@ app.delete("/api/notes/:noteid", (request, response) => {
 
 app.post("/api/notes/", (request, response) => {
   const data = request.body;
+
+  if(!data.content){
+    return response.status(404).json({
+        error: "content is missing"
+    }) 
+  }
+
   const newNote = {
     content: data.content,
     important: data.important || false ,
