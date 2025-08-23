@@ -9,7 +9,7 @@ const App = () => {
   const [notes, setNotes] = useState([]);
   const [newnote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("some error happened...");
+  const [errorMessage, setErrorMessage] = useState("All good now...");
 
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
@@ -49,7 +49,7 @@ const App = () => {
     // setNotes(notes.concat(newObj));
 
     noteService.create(newObj).then((returnedNote) => {
-      setNotes(notes.concat(returnedNote));
+      setNotes(returnedNote);
       setNewNote("");
     });
     // axios.post("http://localhost:3001/notes", newObj).then((response) => {

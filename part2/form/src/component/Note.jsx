@@ -1,5 +1,5 @@
 const Note = ({ note, toggleImportance }) => {
-  const label = note.important ? "make not important" : "make important";
+  const label = note.important ? "false" : "true";
 
   return (
     <>
