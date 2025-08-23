@@ -81,7 +81,7 @@ app.post("/api/notes/", (request, response) => {
     id : String(notes.length + 1)
   }
   notes.push(newNote);
-  response.json(notes);
+  response.json(newNote);
 });
 
 

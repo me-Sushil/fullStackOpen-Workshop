@@ -49,7 +49,7 @@ const App = () => {
     // setNotes(notes.concat(newObj));
 
     noteService.create(newObj).then((returnedNote) => {
-      setNotes(returnedNote);
+      setNotes(notes.concat(returnedNote));
       setNewNote("");
     });
     // axios.post("http://localhost:3001/notes", newObj).then((response) => {
