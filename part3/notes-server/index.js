@@ -16,22 +16,38 @@ app.use(requestLogger);
 
 
 let notes = [
-  {
-    id: "1",
-    content: "HTML is easy",
+  { id: "1", 
+    name: "Sushil Bishowkarma", 
+    number: "9819909012",
     important: true,
-  },
-  {
-    id: "2",
-    content: "Browser can execute only JavaScript",
-    important: false,
-  },
-  {
-    id: "3",
-    content: "GET and POST are the most important methods of HTTP protocol",
+ },
+  { id: "2", 
+    name: "Akash Tolange", 
+    number: "9719093412",
     important: true,
-  },
+},
+  { id: "3", 
+    name: "Niru magar", 
+    number: "9813409018",
+    important: true,
+ },
+  { id: "4", 
+    name: "Muskan ....", 
+    number: "9811909019",
+    important: true,
+ },
+  { id: "5", 
+    name: "Libina Rai", 
+    number: "9719309011",
+    important: true,
+ },
+  { id: "6", 
+    name: "Sirisha .....", 
+    number: "9714609014",
+    important: true,
+ },
 ];
+
 
 // const app = http.createServer((request, response) => {
 //   response.writeHead(200, { 'Content-Type': 'application/json' })
@@ -62,23 +78,31 @@ app.delete("/api/notes/:noteid", (request, response) => {
   response.status(204).end();
 });
 
-app.post("/api/notes/", (request, response) => {
-  const data = request.body;
+// app.post("/api/notes/", (request, response) => {
+//   const data = request.body;
 
-  if(!data.content){
-    return response.status(404).json({
-        error: "content is missing"
-    }) 
-  }
+//   if(!data.content){
+//     return response.status(404).json({
+//         error: "content is missing"
+//     }) 
+//   }
 
-  const newNote = {
-    content: data.content,
-    important: data.important || false ,
-    id : String(notes.length + 1)
-  }
-  notes.push(newNote);
-  response.json(notes);
-});
+//   const newNote = {
+//     content: data.content,
+//     important: data.important || false ,
+//     id : String(notes.length + 1)
+//   }
+//   notes.push(newNote);
+//   response.json(notes);
+// });
+
+
+app.post("/api/notes/",(request, response)=>{
+    const data = request.body;
+    data.id= String(notes.length+1);
+    notes.push(data);
+    response.json(notes);
+})
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
