@@ -87,11 +87,16 @@ const App = () => {
   function handleInput(event) {
     setNewNote(event.target.value);
   }
-  const showAllVariable = showAll
-    ? notes
-    : notes.filter((note) => {
-        return note.important === true;
-      });
+  // const showAllVariable = showAll
+  //   ? notes
+  //   : notes.filter((note) => {
+  //       return note.important === true;
+  //     });
+
+
+      const showAllVariable = showAll
+  ? Array.isArray(notes) ? notes : []
+  : Array.isArray(notes) ? notes.filter((note) => note.important) : [];
 
   // useEffect case 4 run when component unmount
   useEffect(() => {
@@ -112,13 +117,14 @@ const App = () => {
         Show {showAll ? "important" : "all"}
       </button>
       <ul>
-        {showAllVariable.map((note) => (
-          <Note
-            key={note.id}
-            note={note}
-            toggleImportance={() => toggleImportanceOf(note.id)}
-          />
-        ))}
+       {Array.isArray(showAllVariable) &&
+  showAllVariable.map((note) => (
+    <Note
+      key={note.id}
+      note={note}
+      toggleImportance={() => toggleImportanceOf(note.id)}
+    />
+))}
       </ul>
       <form onSubmit={handleSubmit}>
         <input placeholder="Type here" value={newnote} onChange={handleInput} />
