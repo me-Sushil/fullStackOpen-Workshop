@@ -5,6 +5,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static("dist"));
+require("dotenv").config();
+
 
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
@@ -17,25 +19,26 @@ const requestLogger = (request, response, next) => {
 app.use(requestLogger);
 
 
+const url = process.env.MONGODB_URI;
+mongoose.set('strictQuery', false)
+mongoose.connect(url)
 
-let notes = [
-  { id: "1", 
-    content: 'This note is saved to server',
-    important: true,
- },
-  { id: "2", 
-    content: 'Hello from js',
-    important: true,
-},
-  { id: "3", 
-    content: 'Ha Ha Ha  !  K  xa ?',
-    important: true,
- },
-  { id: "4", 
-    content: 'Nice brother',
-    important: true,
- },
-];
+const noteSchema = new mongoose.Schema({
+  content: String,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
+
+const note = new Note({
+  content: 'HTML is easy',
+  important: true,
+})
+
+
+
+
+let notes = [];
 
 
 // const app = http.createServer((request, response) => {
@@ -48,6 +51,10 @@ app.get("/", (request, response) => {
 });
 
 app.get("/api/notes", (request, response) => {
+  note.save().then(result => {
+  console.log('note saved!')
+  mongoose.connection.close()
+})
   response.json(notes);
 });
 
