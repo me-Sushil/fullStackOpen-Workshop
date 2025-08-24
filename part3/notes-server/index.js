@@ -1,6 +1,7 @@
 // const http = require('http')//it import the http package,  no need to install it's build in package
 const express = require("express");
 const cors = require("cors");
+const mongoose = require('mongoose')
 const app = express();
 app.use(express.json());
 app.use(cors());
