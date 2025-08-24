@@ -60,30 +60,37 @@ app.delete("/api/notes/:noteid", (request, response) => {
   response.status(204).end();
 });
 
-app.post("/api/notes/", (request, response) => {
-  const data = request.body;
+// app.post("/api/notes/", (request, response) => {
+//   const data = request.body;
 
-  if (!data.content) {
-    return response.status(404).json({
-      error: "content is missing",
-    });
-  }
+//   if (!data.content) {
+//     return response.status(404).json({
+//       error: "content is missing",
+//     });
+//   }
 
-  const newNote = {
+//   const newNote = {
+//     content: data.content,
+//     important: data.important || false,
+//     id: String(notes.length + 1),
+//   };
+//   notes.push(newNote);
+//   response.json(newNote);
+// });
+
+app.post("/api/notes/",(request, response)=>{
+    const data = request.body;
+    const note = new Note ({
     content: data.content,
     important: data.important || false,
-    id: String(notes.length + 1),
-  };
-  notes.push(newNote);
-  response.json(newNote);
-});
-
-// app.post("/api/notes/",(request, response)=>{
-//     const data = request.body;
-//     data.id= String(notes.length+1);
-//     notes.push(data);
-//     response.json(notes);
-// })
+    // id: String(notes.length + 1),
+  });
+    note.save().then(result => {
+      response.json(result);
+  console.log('note saved!')
+  mongoose.connection.close()
+})
+})
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint" });
