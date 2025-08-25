@@ -36,14 +36,17 @@ app.get("/api/notes", (request, response, next) => {
     });
 });
 
-app.get("/api/notes/:noteid", (request, response) => {
+app.get("/api/notes/:noteid", (request, response, next) => {
   const nid = request.params.noteid;
-  const responseid = notes.find((note) => note.id === nid);
-  if (responseid) {
-    response.json(responseid);
-  } else {
-    response.status(404).end();
-  }
+  Note.findById(nid)
+    .then((result) => response.json(result).end())
+    .catch((error) => next(error));
+  // const responseid = notes.find((note) => note.id === nid);
+  // if (responseid) {
+  //   response.json(responseid);
+  // } else {
+  //   response.status(404).end();
+  // }
 });
 
 app.delete("/api/notes/:noteid", (request, response, next) => {
@@ -97,7 +100,7 @@ app.post("/api/notes/", (request, response, next) => {
     });
 });
 
-const errorhandler=(error, request, response, next)=>{
+const errorhandler = (error, request, response, next) => {
   console.error(error.message);
 
   if (error.name === "CastError") {
@@ -115,7 +118,6 @@ const errorhandler=(error, request, response, next)=>{
 };
 
 app.use(errorhandler);
-
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint" });
