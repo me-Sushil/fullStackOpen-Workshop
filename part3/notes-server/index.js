@@ -18,7 +18,7 @@ const requestLogger = (request, response, next) => {
 
 app.use(requestLogger);
 
-
+const Note = require("./models/notes");
 // const app = http.createServer((request, response) => {
 //   response.writeHead(200, { 'Content-Type': 'application/json' })
 //   response.end(JSON.stringify(notes))
