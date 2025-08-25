@@ -18,38 +18,22 @@ const requestLogger = (request, response, next) => {
 
 app.use(requestLogger);
 
-const url = process.env.MONGODB_URI;
-mongoose.set("strictQuery", false);
-mongoose.connect(url);
-
-const noteSchema = new mongoose.Schema({
-  content: String,
-  important: Boolean,
-});
-
-noteSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-  }
-})
-
-const Note = mongoose.model("Note", noteSchema);
-
-let notes = [];
 
 // const app = http.createServer((request, response) => {
 //   response.writeHead(200, { 'Content-Type': 'application/json' })
 //   response.end(JSON.stringify(notes))
 // })
 
-app.get("/", (request, response) => {
+app.get("/info", (request, response) => {
   response.send("<h2>Hello World!</h2>");
 });
 
-app.get("/api/notes", (request, response) => {
-  Note.find({}).then((result) => response.json(result));
+app.get("/api/notes", (request, response, next) => {
+  Note.find({})
+    .then((result) => response.json(result))
+    .catch((error) => {
+      next(error);
+    });
 });
 
 app.get("/api/notes/:noteid", (request, response) => {
@@ -62,10 +46,18 @@ app.get("/api/notes/:noteid", (request, response) => {
   }
 });
 
-app.delete("/api/notes/:noteid", (request, response) => {
+app.delete("/api/notes/:noteid", (request, response, next) => {
   const nid = request.params.noteid;
-  notes = notes.filter((note) => note.id !== nid);
-  response.status(204).end();
+  Note.findByIdAndDelete(nid).then((result) =>
+    response
+      .status(204)
+      .end()
+      .catch((error) => {
+        next(error);
+      })
+  );
+  // notes = notes.filter((note) => note.id !== nid);
+  // response.status(204).end();
 });
 
 // app.post("/api/notes/", (request, response) => {
@@ -86,19 +78,44 @@ app.delete("/api/notes/:noteid", (request, response) => {
 //   response.json(newNote);
 // });
 
-app.post("/api/notes/",(request, response)=>{
-    const data = request.body;
-    const note = new Note ({
-    content: data.content,
-    important: data.important || false,
+app.post("/api/notes/", (request, response, next) => {
+  const { content, important } = request.body;
+  const note = new Note({
+    content: content,
+    important: important || false,
     // id: String(notes.length + 1),
   });
-    note.save().then(result => {
+  note
+    .save()
+    .then((result) => {
       response.json(result);
-  console.log('note saved!')
-  mongoose.connection.close()
-})
-})
+      console.log("note saved!");
+      mongoose.connection.close();
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+const errorhandler=(error, request, response, next)=>{
+  console.error(error.message);
+
+  if (error.name === "CastError") {
+    // Invalid ObjectId format (e.g., malformed MongoDB _id)
+    return response.status(400).send({ error: "malformatted id" });
+  } else if (error.name === "ValidationError") {
+    // Mongoose schema validation failed (invalid or missing data)
+    return response.status(400).json({ error: error.message });
+  } else if (error.name === "MongoServerError" && error.code === 11000) {
+    // Unique constraint violation (duplicate value for a field marked as unique)
+    return response.status(400).json({ error: "Duplicate field value" });
+  }
+
+  next(error);
+};
+
+app.use(errorhandler);
+
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint" });
