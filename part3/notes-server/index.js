@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static("dist"));
 require("dotenv").config();
+const Note = require("./models/notes");
 
 const requestLogger = (request, response, next) => {
   console.log("Method:", request.method);
@@ -18,7 +19,6 @@ const requestLogger = (request, response, next) => {
 
 app.use(requestLogger);
 
-const Note = require("./models/notes");
 // const app = http.createServer((request, response) => {
 //   response.writeHead(200, { 'Content-Type': 'application/json' })
 //   response.end(JSON.stringify(notes))
@@ -39,7 +39,7 @@ app.get("/api/notes", (request, response, next) => {
 app.get("/api/notes/:noteid", (request, response, next) => {
   const nid = request.params.noteid;
   Note.findById(nid)
-    .then((result) => response.json(result).end())
+    .then((result) => response.json(result))
     .catch((error) => next(error));
   // const responseid = notes.find((note) => note.id === nid);
   // if (responseid) {
@@ -51,14 +51,11 @@ app.get("/api/notes/:noteid", (request, response, next) => {
 
 app.delete("/api/notes/:noteid", (request, response, next) => {
   const nid = request.params.noteid;
-  Note.findByIdAndDelete(nid).then((result) =>
-    response
-      .status(204)
-      .end()
-      .catch((error) => {
-        next(error);
-      })
-  );
+  Note.findByIdAndDelete(nid)
+    .then((result) => response.status(204).end())
+    .catch((error) => {
+      next(error);
+    });
   // notes = notes.filter((note) => note.id !== nid);
   // response.status(204).end();
 });
@@ -83,17 +80,35 @@ app.delete("/api/notes/:noteid", (request, response, next) => {
 
 app.post("/api/notes/", (request, response, next) => {
   const { content, important } = request.body;
+
+  if (!content) {
+    return response.status(400).json({
+      error: "number or name is missing",
+    });
+  }
+
+  Note.findOne({ content: content })
+    .then((isExist) => {
+      if (isExist) {
+        return response.status(400).json({ error: "content must be unique" });
+      }
+    })
+    .catch((error) => {
+      next(error);
+    });
+
   const note = new Note({
     content: content,
     important: important || false,
-    // id: String(notes.length + 1),
+    // id: String(notes.length + 1), this is only for without database code
   });
+
   note
     .save()
     .then((result) => {
       response.json(result);
       console.log("note saved!");
-      mongoose.connection.close();
+      // mongoose.connection.close();
     })
     .catch((error) => {
       next(error);
