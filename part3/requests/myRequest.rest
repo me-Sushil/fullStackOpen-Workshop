@@ -11,3 +11,8 @@ content-type:application/json
     "important": true
     
     }
+
+########
+##GET all notes
+get http://localhost:3001/api/notes
+
