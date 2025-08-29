@@ -19,10 +19,6 @@ const requestLogger = (request, response, next) => {
 
 app.use(requestLogger);
 
-// const app = http.createServer((request, response) => {
-//   response.writeHead(200, { 'Content-Type': 'application/json' })
-//   response.end(JSON.stringify(notes))
-// })
 
 app.get("/info", (request, response) => {
   response.send("<h2>Hello World!</h2>");
