@@ -16,3 +16,13 @@ content-type:application/json
 ##GET all notes
 get http://localhost:3001/api/notes
 
+
+########
+##PUT update notes (valid update)
+put http://localhost:3001/api/notes/2
+content-type: application/json
+
+{
+    "name": "Akash Update",
+    "number": "+977 9719093412"
+}
