@@ -26,3 +26,15 @@ content-type: application/json
     "name": "Akash Update",
     "number": "+977 9719093412"
 }
+
+
+########
+##PUT update notes (invalid data, will fail validation)
+put http://localhost:3001/api/notes/2
+content-type: application/json
+
+{
+    "name": "",
+    "number": "not-a-phone-number"
+}
+
