@@ -16,6 +16,7 @@ const note = new Note({
   content: "HTML is easy",
   important: true,
 })
+
 note.save().then(result => {
   mongoose.connection.close();
 });
