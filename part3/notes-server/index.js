@@ -90,7 +90,7 @@ app.post("/api/notes/", (request, response, next) => {
       }
     })
     .catch((error) => {
-      next(error);
+      next(error);// will handle error middleware
     });
 
   const note = new Note({
