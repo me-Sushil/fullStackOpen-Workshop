@@ -20,7 +20,7 @@ const requestLogger = (request, response, next) => {
 app.use(requestLogger);
 
 
-app.get("/info", (request, response) => {
+app.get("/info", (request, response) => {//we use send to normal data and html form response
   response.send("<h2>Hello World!</h2>");
 });
 
