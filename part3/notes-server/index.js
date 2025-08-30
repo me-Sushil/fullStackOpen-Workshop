@@ -25,7 +25,7 @@ app.get("/info", (request, response) => {//we use send to normal data and html f
 });
 
 app.get("/api/notes", (request, response, next) => {
-  Note.find({})
+  Note.find({})//find without any paramiter to gett all 
     .then((result) => response.json(result))// use json to send json format
     .catch((error) => {
       next(error);
