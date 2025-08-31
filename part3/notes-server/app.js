@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const middleware = require("./utils/middleware");
-const Note = require("./controllers/notes");
+const Note = require("./model/note");
 
 const app = express();
 
