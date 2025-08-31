@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
+const config = require("./utils/config");
 
-const url = process.env.MONGODB_URI;
 mongoose.set("strictQuery", false);
-mongoose.connect(url);
+mongoose.connect(config.MONGODB_URI);
 
 const noteSchema = new mongoose.Schema({
   content: String,
