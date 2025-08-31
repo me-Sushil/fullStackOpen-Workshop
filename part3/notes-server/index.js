@@ -7,7 +7,8 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static("dist"));
 require("dotenv").config();
-const Note = require("./models/notes");
+const Note = require("./controllers/notes");
+const config = require("./utils/config");
 
 const requestLogger = (request, response, next) => {
   console.log("Method:", request.method);
@@ -137,5 +138,5 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint);
 
-app.listen(process.env.PORT);
-console.log(`Server running on port ${process.env.PORT}`);
+app.listen(config.PORT);
+console.log(`Server running on port ${config.PORT}`);
