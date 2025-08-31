@@ -1,15 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-const config = require("../utils/config");
 mongoose.set("strictQuery", false);
-mongoose
-  .connect(config.MONGODB_URI)
-  .then((result) => {
-    console.log("Connected to the mongoDB");
-  })
-  .catch((error) => {
-    console.log(error.message, "Error while connectiong to the Mongodb");
-  });
+
 
 const noteSchema = new mongoose.Schema({
   content: {
