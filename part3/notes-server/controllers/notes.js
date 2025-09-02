@@ -10,11 +10,14 @@ noteRouter.get("/", async (request, response, next) => {
   }
 });
 
-noteRouter.get("/:noteid", (request, response, next) => {
+noteRouter.get("/:noteid", async (request, response, next) => {
   const nid = request.params.noteid;
-  Note.findById(nid)
-    .then((result) => response.json(result))
-    .catch((error) => next(error));
+  try {
+    const result = await Note.findById(nid);
+    response.json(result);
+  } catch (error) {
+    next(error);
+  }
 });
 
 noteRouter.delete("/:noteid", (request, response, next) => {
