@@ -51,7 +51,7 @@ noteRouter.post("/", (request, response, next) => {
     })
     .then((result) => {
       if (result) {
-        response.json(result);
+        response.status(201).json(result);
         console.log("note saved!");
       }
     })
