@@ -20,13 +20,14 @@ noteRouter.get("/:noteid", async (request, response, next) => {
   }
 });
 
-noteRouter.delete("/:noteid", (request, response, next) => {
+noteRouter.delete("/:noteid", async (request, response, next) => {
   const nid = request.params.noteid;
-  Note.findByIdAndDelete(nid)
-    .then((result) => response.status(204).end())
-    .catch((error) => {
-      next(error);
-    });
+  try{
+    Note.findByIdAndDelete(nid)
+    response.status(204).end()
+  }catch(error){
+    next(error);
+  }
 });
 
 noteRouter.post("/", (request, response, next) => {
