@@ -25,7 +25,7 @@ beforeEach(async () => {
   await noteObject.save()
 })
 
-test.only('notes are returned as json', async () => {
+test('notes are returned as json', async () => {
   await api
     .get('/api/notes')
     .expect(200)

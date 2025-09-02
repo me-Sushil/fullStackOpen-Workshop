@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development node --watch index.js",
     "start": "cross-env NODE_ENV=production node index.js",
-    "test-only": "cross-env NODE_ENV=test node --test --test-only",
+    "test": "cross-env NODE_ENV=test node --test",
     "lint": "eslint ."
   },
   "keywords": [],
