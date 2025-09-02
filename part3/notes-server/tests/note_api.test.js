@@ -4,24 +4,16 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const Note = require("../model/note");
 const app = require('../app')
+const helper = require("./test_helper");
 
 const api = supertest(app)
-const initialNotes = [
-  {
-    content: 'HTML is easy',
-    important: false,
-  },
-  {
-    content: 'Browser can execute only JavaScript',
-    important: true,
-  },
-]
+
 
 beforeEach(async () => {
   await Note.deleteMany({})
-  let noteObject = new Note(initialNotes[0])
+  let noteObject = new Note(helper.initialNotes[0])
   await noteObject.save()
-  noteObject = new Note(initialNotes[1])
+  noteObject = new Note(helper.initialNotes[1])
   await noteObject.save()
 })
 
@@ -63,7 +55,7 @@ test('a valid note can be added ', async () => {
 
   const contents = response.body.map(r => r.content)
 
-  assert.strictEqual(response.body.length, initialNotes.length + 1)
+  assert.strictEqual(response.body.length, helper.initialNotes.length + 1)
 
   assert(contents.includes('async/await simplifies making async calls'))
 })
@@ -80,7 +72,7 @@ test('note without content is not added', async () => {
 
   const response = await api.get('/api/notes')
 
-  assert.strictEqual(response.body.length, initialNotes.length)
+  assert.strictEqual(response.body.length, helper.initialNotes.length)
 })
 
 after(async () => {
