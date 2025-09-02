@@ -1,12 +1,13 @@
 const Note = require("../model/note");
 const noteRouter = require("express").Router();
 
-noteRouter.get("/", (request, response, next) => {
-  Note.find({})//find without any paramiter to gett all 
-    .then((result) => response.json(result))// use json to send json format
-    .catch((error) => {
-      next(error);
-    });
+noteRouter.get("/", async (request, response, next) => {
+  try {
+    const result = await Note.find({}); //find without any paramiter to gett all
+    response.json(result); // use json to send json format
+  } catch (error) {
+    next(error);
+  }
 });
 
 noteRouter.get("/:noteid", (request, response, next) => {
@@ -25,7 +26,6 @@ noteRouter.delete("/:noteid", (request, response, next) => {
     });
 });
 
-
 noteRouter.post("/", (request, response, next) => {
   const { content, important } = request.body;
 
@@ -40,7 +40,7 @@ noteRouter.post("/", (request, response, next) => {
       if (isExist) {
         return response.status(400).json({ error: "content must be unique" });
       }
-      
+
       // Move note creation inside the then block
       const note = new Note({
         content: content,
