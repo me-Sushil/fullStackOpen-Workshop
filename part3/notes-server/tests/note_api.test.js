@@ -68,6 +68,21 @@ test('a valid note can be added ', async () => {
   assert(contents.includes('async/await simplifies making async calls'))
 })
 
+test('note without content is not added', async () => {
+  const newNote = {
+    important: true
+  }
+
+  await api
+    .post('/api/notes')
+    .send(newNote)
+    .expect(400)
+
+  const response = await api.get('/api/notes')
+
+  assert.strictEqual(response.body.length, initialNotes.length)
+})
+
 after(async () => {
   await mongoose.connection.close()
 })
