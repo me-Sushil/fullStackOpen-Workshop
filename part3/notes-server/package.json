@@ -8,13 +8,13 @@
     "start": "NODE_ENV=production node index.js",
     "test": "NODE_ENV=test node --test",
     "lint": "eslint ."
-    
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "cross-env": "^10.0.0",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "mongoose": "^8.18.0"
