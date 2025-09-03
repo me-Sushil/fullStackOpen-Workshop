@@ -1,6 +1,7 @@
 const Note = require("../model/note");
 const noteRouter = require("express").Router();
 
+
 noteRouter.get("/", async (request, response, next) => {
   try {
     const result = await Note.find({}); //find without any paramiter to gett all
