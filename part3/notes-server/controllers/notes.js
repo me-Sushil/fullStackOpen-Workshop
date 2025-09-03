@@ -23,12 +23,18 @@ noteRouter.get("/:noteid", async (request, response, next) => {
 noteRouter.delete("/:noteid", async (request, response, next) => {
   const nid = request.params.noteid;
   try {
-    Note.findByIdAndDelete(nid);
+    const deletedNote = await Note.findByIdAndDelete(nid);
+
+    if (!deletedNote) {
+      return response.status(404).json({ error: "note not found" });
+    }
+
     response.status(204).end();
   } catch (error) {
     next(error);
   }
 });
+
 
 noteRouter.post("/", async (request, response, next) => {
   try {
