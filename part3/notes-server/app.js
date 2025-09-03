@@ -3,6 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const middleware = require("./utils/middleware");
 const noteRouter = require("./controllers/notes");
+const usersRouter = require("./controllers/users")
 const app = express();
 const config = require("./utils/config");
 
@@ -24,6 +25,8 @@ mongoose
 app.use(middleware.requestLogger);
 
 app.use("/api/notes", noteRouter);
+app.use("/api/users", usersRouter)
+
 
 app.use(middleware.errorhandler);
 
