@@ -26,7 +26,7 @@ usersRouter.post('/', async (request, response, next) => {
 
 usersRouter.get('/', async (request, response, next) => {
   try {
-    const users = await User.find({})
+    const users = await User.find({}).populate('notes', { content: 1, important: 1 })
     response.json(users)
   } catch (error) {
     next(error)

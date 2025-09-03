@@ -4,7 +4,7 @@ const User = require("../model/user");
 
 noteRouter.get("/", async (request, response, next) => {
   try {
-    const result = await Note.find({}); //find without any paramiter to gett all
+    const result = await Note.find({}).populate('user', { username: 1, name: 1 }); //find without any paramiter to gett all
     response.json(result); // use json to send json format
   } catch (error) {
     next(error);
