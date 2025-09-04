@@ -12,11 +12,10 @@ delete http://localhost:3001/api/notes/2
 post http://localhost:3001/api/notes
 content-type:application/json
 
-{
-    "name": "Niru ...", 
-    "number": "98199090166",
-    "important": true
-    }
+{"content": ,
+  "important": ,
+  "user":,
+}
 
 ########
 ##PUT update notes (valid update)

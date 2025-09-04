@@ -4,7 +4,10 @@ const User = require("../model/user");
 
 noteRouter.get("/", async (request, response, next) => {
   try {
-    const result = await Note.find({}).populate('user', { username: 1, name: 1 }); //find without any paramiter to gett all
+    const result = await Note.find({}).populate("user", {
+      username: 1,
+      name: 1,
+    }); //find without any paramiter to gett all
     response.json(result); // use json to send json format
   } catch (error) {
     next(error);
@@ -38,21 +41,24 @@ noteRouter.delete("/:noteid", async (request, response, next) => {
 
 noteRouter.post("/", async (request, response, next) => {
   try {
-    const { content, important } = request.body;
+    const {userId, content,important } = request.body;
 
-    const user = await User.findById(body.userId);
+    const user = await User.findById(userId);
+    console.log(userId, content, important, " this is body content");
+   console.log(user);
     if (!user) {
       return response
         .status(400)
         .json({ error: "userId missing or not valid" });
     }
-    if (!content) {
-      return response.status(400).json({
-        error: "content is missing",
-      });
-    }
 
-    const isExist = await Note.findOne({ content: content });
+    // if (!body.content) {
+    //   return response.status(400).json({
+    //     error: "content is missing",
+    //   });
+    // }
+
+    const isExist = await Note.findOne({ content });
 
     if (isExist) {
       return response.status(400).json({ error: "content must be unique" });
@@ -62,11 +68,11 @@ noteRouter.post("/", async (request, response, next) => {
     const note = new Note({
       content: content,
       important: important || false,
-      user: user._id,
+      user: user.id,
     });
 
     const result = await note.save();
-    user.notes = user.notes.concat(savedNote._id);
+    user.notes = user.notes.concat(result.id);
     await user.save();
 
     if (result) {
