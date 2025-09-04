@@ -46,7 +46,7 @@ noteRouter.post("/", async (request, response, next) => {
     const authorization = request.get("authorization");
     console.log(authorization, "this is token from request");
 
-    const authoArr = authorization.split(" ");
+    const authoArr = authorization && authorization.split(" ");
 
     const decodedToken = jwt.verify(authoArr[1], config.SEKRET);
     console.log(decodedToken, "this is decoded token");
