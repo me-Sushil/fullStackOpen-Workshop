@@ -4,7 +4,6 @@ get http://localhost:3001/api/notes
 
 
 ########
-
 delete http://localhost:3001/api/notes/2
 
 ####
