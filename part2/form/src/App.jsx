@@ -131,7 +131,12 @@ const App = () => {
       <Notification message={errorMessage} />
 
       {!user && loginForm()}
-      {user && noteForm()}
+       {user && (
+      <div>
+        <p>{user.name} logged in</p>
+        {noteForm()}
+      </div>
+    )}
 
       {/* <h2>Login</h2>
       <form onSubmit={handleLogin}>
