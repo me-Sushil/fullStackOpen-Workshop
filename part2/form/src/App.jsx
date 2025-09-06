@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Note from "./component/Note";
 import noteService from "./services/notes";
-import loginService from './services/login'
+import loginService from "./services/login";
 import "./index.css";
 import Notification from "./component/Notification";
 import Footer from "./component/Footer";
@@ -11,10 +11,9 @@ const App = () => {
   const [newnote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
   const [errorMessage, setErrorMessage] = useState("All good now...");
-const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
-  const [user, setUser] = useState(null)
-
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
@@ -61,9 +60,13 @@ const [username, setUsername] = useState('')
     setNewNote(event.target.value);
   }
 
-      const showAllVariable = showAll
-  ? Array.isArray(notes) ? notes : []
-  : Array.isArray(notes) ? notes.filter((note) => note.important) : [];
+  const showAllVariable = showAll
+    ? Array.isArray(notes)
+      ? notes
+      : []
+    : Array.isArray(notes)
+    ? notes.filter((note) => note.important)
+    : [];
 
   useEffect(() => {
     return function () {
@@ -75,21 +78,53 @@ const [username, setUsername] = useState('')
     setShowAll(!showAll);
   };
 
-
-  const handleLogin = async event => {
-    event.preventDefault()
- try {
-      const user = await loginService.login({ username, password })
-      setUser(user)
-      setUsername('')
-      setPassword('')
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      const user = await loginService.login({ username, password });
+      setUser(user);
+      setUsername("");
+      setPassword("");
     } catch {
-      setErrorMessage('wrong credentials')
+      setErrorMessage("wrong credentials");
       setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-    }  }
+        setErrorMessage(null);
+      }, 5000);
+    }
+  };
 
+    const loginForm = () => (
+    <form onSubmit={handleLogin}>
+      <div>
+        <label>
+          username
+          <input
+            type="text"
+            value={username}
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          password
+          <input
+            type="password"
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </label>
+      </div>
+      <button type="submit">login</button>
+    </form>
+  )
+
+  const noteForm = () => (
+    <form onSubmit={addNote}>
+      <input value={newNote} onChange={handleNoteChange} />
+      <button type="submit">save</button>
+    </form>
+  )
   return (
     <>
       <h1>My Notes</h1>
@@ -122,20 +157,20 @@ const [username, setUsername] = useState('')
         Show {showAll ? "important" : "all"}
       </button>
       <ul>
-       {Array.isArray(showAllVariable) &&
-  showAllVariable.map((note) => (
-    <Note
-      key={note.id}
-      note={note}
-      toggleImportance={() => toggleImportanceOf(note.id)}
-    />
-))}
+        {Array.isArray(showAllVariable) &&
+          showAllVariable.map((note) => (
+            <Note
+              key={note.id}
+              note={note}
+              toggleImportance={() => toggleImportanceOf(note.id)}
+            />
+          ))}
       </ul>
       <form onSubmit={handleSubmit}>
         <input placeholder="Type here" value={newnote} onChange={handleInput} />
         <button>submit</button>
       </form>
-       <Footer />
+      <Footer />
     </>
   );
 };
