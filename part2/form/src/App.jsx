@@ -82,7 +82,10 @@ const App = () => {
     event.preventDefault();
     try {
       const user = await loginService.login({ username, password });
-          noteService.setToken(user.token)
+       window.localStorage.setItem(
+        'loggedNoteappUser', JSON.stringify(user)
+      )    
+      noteService.setToken(user.token)
 
       setUser(user);
       setUsername("");
