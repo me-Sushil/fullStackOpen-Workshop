@@ -13,6 +13,9 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState("All good now...");
 const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('') 
+  const [user, setUser] = useState(null)
+
+
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
       setNotes(initialNotes);
@@ -110,10 +113,21 @@ const [username, setUsername] = useState('')
   const handleShowFilter = () => {
     setShowAll(!showAll);
   };
-   const handleLogin = (event) => {
+
+
+  const handleLogin = async event => {
     event.preventDefault()
-    console.log('logging in with', username, password)
-  }
+ try {
+      const user = await loginService.login({ username, password })
+      setUser(user)
+      setUsername('')
+      setPassword('')
+    } catch {
+      setErrorMessage('wrong credentials')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }  }
 
   return (
     <>
