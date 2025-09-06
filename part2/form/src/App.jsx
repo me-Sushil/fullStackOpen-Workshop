@@ -120,8 +120,8 @@ const App = () => {
   )
 
   const noteForm = () => (
-    <form onSubmit={addNote}>
-      <input value={newNote} onChange={handleNoteChange} />
+    <form onSubmit={newnote}>
+      <input value={newnote} onChange={handleInput} />
       <button type="submit">save</button>
     </form>
   )
@@ -129,7 +129,11 @@ const App = () => {
     <>
       <h1>My Notes</h1>
       <Notification message={errorMessage} />
-      <h2>Login</h2>
+
+      {!user && loginForm()}
+      {user && noteForm()}
+
+      {/* <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <div>
           <label>
@@ -152,7 +156,7 @@ const App = () => {
           </label>
         </div>
         <button type="submit">login</button>
-      </form>
+      </form> */}
       <button onClick={handleShowFilter}>
         Show {showAll ? "important" : "all"}
       </button>
@@ -166,10 +170,10 @@ const App = () => {
             />
           ))}
       </ul>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <input placeholder="Type here" value={newnote} onChange={handleInput} />
         <button>submit</button>
-      </form>
+      </form> */}
       <Footer />
     </>
   );
