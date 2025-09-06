@@ -120,7 +120,7 @@ const App = () => {
   )
 
   const noteForm = () => (
-    <form onSubmit={newnote}>
+    <form onSubmit={handleSubmit}>
       <input value={newnote} onChange={handleInput} />
       <button type="submit">save</button>
     </form>
