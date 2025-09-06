@@ -21,51 +21,23 @@ const [username, setUsername] = useState('')
       setNotes(initialNotes);
       console.log(initialNotes, "initialNotes");
     });
-    // axios.get("http://localhost:3001/notes").then((response) => {
-    //   console.log("promise fulfilled");
-    //   console.log(response.data);
-    //   setNotes(response.data);
-    // });
   }, []);
-
-  // // useEffect Case 1  run every render
-  // useEffect(()=>{
-  //   console.log("run in every render")
-  // })
-
-  // // useEffect Case 2  run first render
-  // useEffect(()=>{
-  //   console.log("run first render")
-  // },[]);
-
-  // // useEffect Case 3  run when state change
-  // useEffect(()=>{
-  //   console.log("run when state shange")
-  // },[notes])
 
   function handleSubmit(event) {
     event.preventDefault();
     console.log("form submit", event.target);
     const newObj = {
-      //id: notes.length + 1,
       content: newnote,
       important: Math.random() > 0.5,
     };
-    // setNotes(notes.concat(newObj));
 
     noteService.create(newObj).then((returnedNote) => {
       setNotes(notes.concat(returnedNote));
       setNewNote("");
     });
-    // axios.post("http://localhost:3001/notes", newObj).then((response) => {
-    //   console.log(response.data);
-    //   setNotes(notes.concat(response.data));
-    //   setNewNote("");
-    // });
   }
 
   const toggleImportanceOf = (id) => {
-    // const url = `http://localhost:3001/notes/${id}`;
     const note = notes.find((n) => n.id === id);
     const changedNote = { ...note, important: !note.important };
 
@@ -83,27 +55,16 @@ const [username, setUsername] = useState('')
         }, 5000);
         setNotes(notes.filter((n) => n.id !== id));
       });
-
-    // axios.put(url, changedNote).then((response) => {
-    //   setNotes(notes.map((note) => (note.id !== id ? note : response.data)));
-    // });
   };
 
   function handleInput(event) {
     setNewNote(event.target.value);
   }
-  // const showAllVariable = showAll
-  //   ? notes
-  //   : notes.filter((note) => {
-  //       return note.important === true;
-  //     });
-
 
       const showAllVariable = showAll
   ? Array.isArray(notes) ? notes : []
   : Array.isArray(notes) ? notes.filter((note) => note.important) : [];
 
-  // useEffect case 4 run when component unmount
   useEffect(() => {
     return function () {
       console.log("component is unmount");
