@@ -1,3 +1,4 @@
+const { response } = require("../app");
 const Note = require("../model/note");
 const noteRouter = require("express").Router();
 const User = require("../model/user");
@@ -50,16 +51,16 @@ noteRouter.post("/", async (request, response, next) => {
 
     const decodedToken = jwt.verify(authoArr[1], config.SEKRET);
     console.log(decodedToken, "this is decoded token");
-    if(!decodedToken){
-      return response.status(401).json({error:"Unauthorized"});
+    if (!decodedToken) {
+      return response.status(401).json({ error: "Unauthorized" });
     }
 
-      const { content,important } = request.body;
+    const { content, important } = request.body;
 
-      const user = await User.findById(decodedToken.id);
-      console.log(user, " get by decoded token");
+    const user = await User.findById(decodedToken.id);
+    console.log(user, " get by decoded token");
 
-      if (!user) {
+    if (!user) {
       return response
         .status(400)
         .json({ error: "userId missing or not valid" });
@@ -78,14 +79,33 @@ noteRouter.post("/", async (request, response, next) => {
       user: user.id,
     });
 
-     const result = await note.save();
-     user.notes = user.notes.concat(result.id);
-     await user.save();
+    const result = await note.save();
+    user.notes = user.notes.concat(result.id);
+    await user.save();
 
     if (result) {
       response.status(201).json(result);
       console.log("note saved!");
     }
+  } catch (error) {
+    next(error);
+  }
+});
+
+noteRouter.put("/:id", async (request, response, next) => {
+  const id = request.params.id;
+  const newNote = request.body;
+  try {
+    const updatedNote = await Note.findByIdAndUpdate(id, newNote, {
+      new: true,
+      runValidators: true,
+      context: "query", // return updated doc, validate schema
+    });
+
+    if (!updatedNote) {
+      return response.status(400).json({ error: "note not exist" });
+    }
+    response.json(updatedNote);
   } catch (error) {
     next(error);
   }
