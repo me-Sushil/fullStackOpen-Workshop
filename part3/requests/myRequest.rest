@@ -36,3 +36,13 @@ content-type: application/json
     "number": "not-a-phone-number"
 }
 
+###  register user
+
+post http://localhost:3001/api/users
+content-type: application/json
+
+{
+  "username":"sushil1",
+  "name":"Sushil BK",
+  "password":"sushil1"
+}
