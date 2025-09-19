@@ -63,7 +63,7 @@ const App = () => {
           `Note '${note.content}' was already removed from server ${error}`
         );
         setTimeout(() => {
-          setErrorMessage(null);
+          setErrorMessage("All good now...");
         }, 5000);
         setNotes(notes.filter((n) => n.id !== id));
       });
@@ -104,7 +104,7 @@ const App = () => {
     } catch {
       setErrorMessage("wrong credentials");
       setTimeout(() => {
-        setErrorMessage(null);
+        setErrorMessage("All good now...");
       }, 5000);
     }
   };
