@@ -22,14 +22,14 @@ const App = () => {
     });
   }, []);
 
-   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("loggedNoteappUser");
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      noteService.setToken(user.token)
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      noteService.setToken(user.token);
     }
-  }, [])
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -47,7 +47,11 @@ const App = () => {
 
   const toggleImportanceOf = (id) => {
     const note = notes.find((n) => n.id === id);
-    const changedNote = { ...note, important: !note.important };
+    const changedNote = {
+      ...note,
+      important: !note.important,
+      user: note.user.id || note.user,
+    };
 
     noteService
       .update(id, changedNote)
@@ -91,10 +95,8 @@ const App = () => {
     event.preventDefault();
     try {
       const user = await loginService.login({ username, password });
-       window.localStorage.setItem(
-        'loggedNoteappUser', JSON.stringify(user)
-      )    
-      noteService.setToken(user.token)
+      window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
+      noteService.setToken(user.token);
 
       setUser(user);
       setUsername("");
@@ -107,7 +109,7 @@ const App = () => {
     }
   };
 
-    const loginForm = () => (
+  const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
         <label>
@@ -131,51 +133,26 @@ const App = () => {
       </div>
       <button type="submit">login</button>
     </form>
-  )
+  );
 
   const noteForm = () => (
     <form onSubmit={handleSubmit}>
       <input value={newnote} onChange={handleInput} />
       <button type="submit">save</button>
     </form>
-  )
+  );
   return (
     <>
       <h1>My Notes</h1>
       <Notification message={errorMessage} />
 
       {!user && loginForm()}
-       {user && (
-      <div>
-        <p>{user.name} logged in</p>
-        {noteForm()}
-      </div>
-    )}
-
-      {/* <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      {user && (
         <div>
-          <label>
-            username
-            <input
-              type="text"
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </label>
+          <p>{user.name} logged in</p>
+          {noteForm()}
         </div>
-        <div>
-          <label>
-            password
-            <input
-              type="password"
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </label>
-        </div>
-        <button type="submit">login</button>
-      </form> */}
+      )}
       <button onClick={handleShowFilter}>
         Show {showAll ? "important" : "all"}
       </button>
@@ -189,10 +166,6 @@ const App = () => {
             />
           ))}
       </ul>
-      {/* <form onSubmit={handleSubmit}>
-        <input placeholder="Type here" value={newnote} onChange={handleInput} />
-        <button>submit</button>
-      </form> */}
       <Footer />
     </>
   );
