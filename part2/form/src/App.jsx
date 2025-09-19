@@ -40,7 +40,9 @@ const App = () => {
     };
 
     noteService.create(newObj).then((returnedNote) => {
-      setNotes(notes.concat(returnedNote));
+      console.log("returnedNote", returnedNote); // debug
+      setNotes((prevNotes) => prevNotes.concat(returnedNote)); // functional update
+      // setNotes(notes.concat(returnedNote));
       setNewNote("");
     });
   }
@@ -138,7 +140,7 @@ const App = () => {
   const noteForm = () => (
     <form onSubmit={handleSubmit}>
       <input value={newnote} onChange={handleInput} />
-      <button type="submit">save</button>
+      <button type="submit">submit</button>
     </form>
   );
   return (
