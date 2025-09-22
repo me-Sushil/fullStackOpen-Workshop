@@ -40,10 +40,16 @@ const App = () => {
     };
 
     noteService.create(newObj).then((returnedNote) => {
-      console.log("returnedNote", returnedNote); // debug
+      console.log("returnedNote check", returnedNote); // debug
+      
       setNotes((prevNotes) => prevNotes.concat(returnedNote)); // functional update
       // setNotes(notes.concat(returnedNote));
       setNewNote("");
+
+    }).catch((error)=>{
+      setErrorMessage(error.response?.data?.error || "Failed to create note");
+      setNewNote("");
+    setTimeout(() => setErrorMessage("All good now..."), 5000);
     });
   }
 
@@ -160,7 +166,7 @@ const App = () => {
       </button>
       <ul>
         {Array.isArray(showAllVariable) &&
-          showAllVariable.map((note) => (
+          showAllVariable?.map((note) => (
             <Note
               key={note.id}
               note={note}
