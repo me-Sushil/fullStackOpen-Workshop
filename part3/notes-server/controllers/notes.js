@@ -1,4 +1,3 @@
-const { response } = require("../app");
 const Note = require("../model/note");
 const noteRouter = require("express").Router();
 const User = require("../model/user");
@@ -11,6 +10,7 @@ noteRouter.get("/", async (request, response, next) => {
       username: 1,
       name: 1,
     }); //find without any paramiter to gett all
+    console.log(result, "this is test of request response");
     response.json(result); // use json to send json format
   } catch (error) {
     next(error);
