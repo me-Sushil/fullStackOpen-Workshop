@@ -8,12 +8,11 @@ const setToken = (newToken) => {
   token = `Bearer ${newToken}`;
 };
 
-const getAll = () => {
-  const request = axios.get(baseUrl);
-  return request.then((response) =>
-    response.data.concat({ id: 1000, content: "this is fake", important: true })
-  );
+const getAll = async() => {
+  const response = await axios.get(baseUrl);
+  return response.data.concat({ id: 1000, content: "this is fake", important: true })
 };
+ 
 
 const create = async (newObject) => {
   const config = {
