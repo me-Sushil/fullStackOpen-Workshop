@@ -34,7 +34,7 @@ test("renders content with container", () => {
   };
 
   const { container } = render(<Note note={note} />);
-
+  screen.debug();
   const div = container.querySelector(".note");
   expect(div).toHaveTextContent(
     "Component testing is done with react-testing-library"
