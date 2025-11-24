@@ -15,3 +15,14 @@ test("renders content", () => {
   );
   expect(element).toBeDefined();
 });
+test("does not render this", () => {
+  const note = {
+    content: "This is a reminder",
+    important: true,
+  };
+
+  render(<Note note={note} />);
+
+  const element = screen.queryByText("do not want this thing to be rendered");
+  expect(element).toBeNull();
+});
