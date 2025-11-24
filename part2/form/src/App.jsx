@@ -71,8 +71,8 @@ const App = () => {
       ? notes
       : []
     : Array.isArray(notes)
-    ? notes.filter((note) => note.important)
-    : [];
+      ? notes.filter((note) => note.important)
+      : [];
 
   useEffect(() => {
     return function () {

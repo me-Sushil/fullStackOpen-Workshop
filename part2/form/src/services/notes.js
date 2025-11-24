@@ -10,9 +10,9 @@ const setToken = (newToken) => {
 
 const getAll = async() => {
   const response = await axios.get(baseUrl);
-  return response.data.concat({ id: 1000, content: "this is fake", important: true })
+  return response.data.concat({ id: 1000, content: "this is fake", important: true });
 };
- 
+
 
 const create = async (newObject) => {
   const config = {
