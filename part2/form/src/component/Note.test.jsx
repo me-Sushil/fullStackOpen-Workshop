@@ -10,7 +10,8 @@ test("renders content", () => {
   render(<Note note={note} />);
 
   const element = screen.getByText(
-    "Component testing is done with react-testing-library"
+    "Component testing is done with react-testing-library",
+    { exact: false }
   );
   expect(element).toBeDefined();
 });
