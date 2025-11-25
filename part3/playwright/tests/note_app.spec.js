@@ -5,6 +5,7 @@ const {
   beforeEach,
   request,
 } = require("@playwright/test");
+const { loginWith } = require("./helper");
 
 describe("Note app", () => {
   beforeEach(async ({ page, request }) => {
@@ -30,19 +31,13 @@ describe("Note app", () => {
   });
 
   test("user can log in", async ({ page }) => {
-    await page.getByRole("button", { name: "Login Toggle" }).click();
-    await page.getByLabel("username").fill("Sushil1");
-    await page.getByLabel("password").fill("Sushil1");
-    await page.getByRole("button", { name: "login" }).click();
+    await loginWith(page, "Sushil1", "Sushil1");
     await expect(page.getByText("Sushil BK logged in")).toBeVisible();
   });
 
   describe("when logged in", () => {
     beforeEach(async ({ page }) => {
-      await page.getByRole("button", { name: "Login Toggle" }).click();
-      await page.getByLabel("username").fill("Sushil1");
-      await page.getByLabel("password").fill("Sushil1");
-      await page.getByRole("button", { name: "login" }).click();
+      await loginWith(page, "Sushil1", "Sushil1");
     });
     test("a new note can be created", async ({ page }) => {
       await page.getByRole("button", { name: "new note" }).click();
@@ -66,10 +61,7 @@ describe("Note app", () => {
 
   // to run only one test with command :  npm test -- -g "login fails with wrong password"
   test("login fails with wrong password", async ({ page }) => {
-    await page.getByRole("button", { name: "login" }).click();
-    await page.getByLabel("username").fill("mluukkai");
-    await page.getByLabel("password").fill("wrong");
-    await page.getByRole("button", { name: "login" }).click();
+    await loginWith(page, "Sushil1", "wrong");
 
     await expect(page.getByText("wrong credentials")).toBeVisible();
   });
