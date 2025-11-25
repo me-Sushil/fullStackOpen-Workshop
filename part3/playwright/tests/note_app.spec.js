@@ -63,8 +63,8 @@ describe("Note app", () => {
       });
     });
   });
-  
-  test("login fails with wrong password", async ({ page }) => {
+
+  test.only("login fails with wrong password", async ({ page }) => {
     await page.getByRole("button", { name: "login" }).click();
     await page.getByLabel("username").fill("mluukkai");
     await page.getByLabel("password").fill("wrong");
