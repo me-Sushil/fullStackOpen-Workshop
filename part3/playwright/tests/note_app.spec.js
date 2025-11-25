@@ -17,9 +17,9 @@ describe("Note app", () => {
     await page.goto("http://localhost:5173");
 
     await page.getByRole("button", { name: "login" }).click();
-    await page.getByRole("textbox").first().fill("Sushil");
-    await page.getByRole("textbox").last().fill("Bishow");
-    await page.getByRole("button", {name: "login"}).click();
-    await expect(page.getByText("Sushil Bishow logged in")).toBeVisible();
+    await page.getByLabel("username").fill("Sushil1");
+    await page.getByLabel("password").fill("Sushil1");
+    await page.getByRole("button", { name: "login" }).click();
+    await expect(page.getByText("Sushil BK logged in")).toBeVisible();
   });
 });
