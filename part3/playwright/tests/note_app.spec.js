@@ -64,7 +64,8 @@ describe("Note app", () => {
     });
   });
 
-  test.only("login fails with wrong password", async ({ page }) => {
+  // to run only one test with command :  npm test -- -g "login fails with wrong password"
+  test("login fails with wrong password", async ({ page }) => {
     await page.getByRole("button", { name: "login" }).click();
     await page.getByLabel("username").fill("mluukkai");
     await page.getByLabel("password").fill("wrong");
