@@ -16,10 +16,25 @@ describe("Note app", () => {
   });
 
   test("user can log in", async ({ page }) => {
-    await page.getByRole("button", { name: "login" }).click();
+    await page.getByRole("button", { name: "Login Toggle" }).click();
     await page.getByLabel("username").fill("Sushil1");
     await page.getByLabel("password").fill("Sushil1");
     await page.getByRole("button", { name: "login" }).click();
     await expect(page.getByText("Sushil BK logged in")).toBeVisible();
+  });
+
+  describe("when logged in", () => {
+    beforeEach(async ({ page }) => {
+      await page.getByRole("button", { name: "Login Toggle" }).click();
+      await page.getByLabel("username").fill("Sushil1");
+      await page.getByLabel("password").fill("Sushil1");
+      await page.getByRole("button", { name: "login" }).click();
+    });
+    test("a new note can be created", async ({ page }) => {
+      await page.getByRole("button", { name: "new note" }).click();
+      await page.getByRole("textbox").fill("this is test content");
+      await page.getByRole("button", { name: "save" }).click();
+      await expect(page.getByText("this is test content")).toBeVisible();
+    });
   });
 });
