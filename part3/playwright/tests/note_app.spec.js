@@ -1,10 +1,18 @@
-const { test, expect, describe, beforeEach } = require("@playwright/test");
+const { test, expect, describe, beforeEach, request } = require("@playwright/test");
 
 describe("Note app", () => {
-  beforeEach(async ({ page }) => {
+  beforeEach(async ({ page, request }) => {
+    await request.post("http://localhost:3001/api/testing/reset");
+    await request.post("http://localhost:3001/api/users", {
+      data: {
+        name: "Sushil BK",
+        username: "Sushil1",
+        password: "Sushil1",
+      },
+    });
+
     await page.goto("http://localhost:5173");
   });
-
   test("front page can be opened", async ({ page }) => {
     const locator = page.getByText("Notes");
     await expect(locator).toBeVisible();
