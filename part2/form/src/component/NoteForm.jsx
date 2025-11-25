@@ -18,9 +18,9 @@ const NoteForm = ({ createNote }) => {
       <h2>Create a new note</h2>
 
       <form onSubmit={addNote}>
-        <input />
+        {/* <input /> */}
         <label>
-          content
+          content:
           <input
             placeholder="input"
             id="input-place"
