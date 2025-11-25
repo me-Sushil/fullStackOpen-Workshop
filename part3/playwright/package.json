@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test --ui --project chromium",
+    "test:trace": "playwright test --ui --project chromium --trace on",
     "test:report": "playwright show-report"
   },
   "keywords": [],
