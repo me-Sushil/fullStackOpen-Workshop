@@ -1,4 +1,10 @@
-const { test, expect, describe, beforeEach, request } = require("@playwright/test");
+const {
+  test,
+  expect,
+  describe,
+  beforeEach,
+  request,
+} = require("@playwright/test");
 
 describe("Note app", () => {
   beforeEach(async ({ page, request }) => {
@@ -43,6 +49,18 @@ describe("Note app", () => {
       await page.getByRole("textbox").fill("this is test content");
       await page.getByRole("button", { name: "save" }).click();
       await expect(page.getByText("this is test content")).toBeVisible();
+    });
+    describe("and a note exists", () => {
+      beforeEach(async ({ page }) => {
+        await page.getByRole("button", { name: "new note" }).click();
+        await page.getByRole("textbox").fill("another note by playwright");
+        await page.getByRole("button", { name: "save" }).click();
+      });
+
+      test("importance can be changed", async ({ page }) => {
+        await page.getByRole("button", { name: "false" }).click();
+        await expect(page.getByText("true")).toBeVisible();
+      });
     });
   });
 });
