@@ -1,26 +1,37 @@
-import { useState } from 'react'
-import './App.css'
+import { createNote, toggleImportanceOf } from "./reducers/noteReducer";
+import { useSelector, useDispatch } from 'react-redux' 
 
 function App() {
-  const [count, setCount] = useState(0)
+ const dispatch = useDispatch()
+  const notes = useSelector(state => state)
+
+  const addNote = (event) => {
+    event.preventDefault();
+    const content = event.target.note.value;
+    event.target.note.value = "";
+    dispatch(createNote(content));
+  };
+
 
   return (
     <>
-      
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <form onSubmit={addNote}>
+        <input name="note" />
+        <button type="submit">add</button>
+      </form>
+      <ul>
+        {notes.map((note) => (
+          <li
+            key={note.id}
+            onClick={() => dispatch(toggleImportanceOf(note.id))}
+          >
+            {note.content}{" "}
+            <strong>{note.important ? "important" : "not important"}</strong>
+          </li>
+        ))}
+      </ul>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
