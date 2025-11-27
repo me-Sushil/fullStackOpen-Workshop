@@ -3,7 +3,6 @@ import "./index.css";
 import noteReducer from "./reducers/noteReducer";
 import { createStore } from "redux";
 
-
 const store = createStore(noteReducer);
 
 store.dispatch({
@@ -29,7 +28,15 @@ function App() {
     <>
       <ul>
         {store.getState().map((note) => (
-          <li key={note.id}>
+          <li
+            key={note.id}
+            onClick={() => {
+              store.dispatch({
+                type: "TOGGLE_IMPORTANCE",
+                payload: { id: note.id },
+              });
+            }}
+          >
             {note.content}{" "}
             <strong>{note.important ? "important" : "not important"}</strong>
           </li>
