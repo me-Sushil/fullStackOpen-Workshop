@@ -40,4 +40,5 @@ function myRender() {
   myRoot.render(<App />);
 }
 myRender();
-store.subscribe(myRender);
+store.subscribe(myRender);//every time store value change that time 
+// myRender function call and this will render the app
