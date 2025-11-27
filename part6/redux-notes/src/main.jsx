@@ -4,6 +4,7 @@ import noteReducer from "./reducers/noteReducer";
 import { createStore } from "redux";
 
 const store = createStore(noteReducer);
+const generateId = () => Number((Math.random() * 1000000).toFixed(0));
 
 store.dispatch({
   type: "NEW_NOTE",
@@ -23,9 +24,26 @@ store.dispatch({
   },
 });
 
+const addNote = (event) => {
+  event.preventDefault();
+  const content = event.target.note.value;
+  event.target.note.value = "";
+  store.dispatch({
+    type: "NEW_NOTE",
+    payload: {
+      content,
+      important: false,
+      id: generateId(),
+    },
+  });
+};
 function App() {
   return (
     <>
+      <form onSubmit={addNote}>
+        <input name="note" />
+        <button type="submit">add</button>
+      </form>
       <ul>
         {store.getState().map((note) => (
           <li

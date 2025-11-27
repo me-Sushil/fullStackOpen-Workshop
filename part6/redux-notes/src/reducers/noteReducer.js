@@ -1,3 +1,4 @@
+
 const noteReducer = (state = [], action) => {
   switch (action.type) {
     case "NEW_NOTE":
