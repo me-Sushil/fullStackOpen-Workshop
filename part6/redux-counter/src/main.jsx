@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { useState } from "react";
+// import { useState } from "react";
 import "./index.css";
 import { createStore } from "redux";
 
@@ -18,7 +18,7 @@ const counterReducer = (state=0, action) => {
 const store = createStore(counterReducer);
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
   const incriment = () => {
     // setCount(count + 1);
