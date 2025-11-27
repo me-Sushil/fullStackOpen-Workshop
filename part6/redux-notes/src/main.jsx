@@ -1,17 +1,8 @@
 import { createRoot } from "react-dom/client";
-import ReactDOM from "react-dom/client";
 import "./index.css";
+import noteReducer from "./reducers/noteReducer";
 import { createStore } from "redux";
 
-const noteReducer = (state = [], action) => {
-  switch (action.type) {
-    case "NEW_NOTE":
-      state.push(action.payload);
-      return state;
-    default:
-      return state;
-  }
-};
 
 const store = createStore(noteReducer);
 
@@ -39,7 +30,8 @@ function App() {
       <ul>
         {store.getState().map((note) => (
           <li key={note.id}>
-            {note.content} <strong>{note.important ? "important" : "not important"}</strong>
+            {note.content}{" "}
+            <strong>{note.important ? "important" : "not important"}</strong>
           </li>
         ))}
       </ul>
