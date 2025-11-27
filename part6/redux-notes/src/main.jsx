@@ -1,10 +1,12 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import noteReducer from "./reducers/noteReducer";
+import noteReducer, {
+  createNote,
+  toggleImportanceOf,
+} from "./reducers/noteReducer";
 import { createStore } from "redux";
 
 const store = createStore(noteReducer);
-const generateId = () => Number((Math.random() * 1000000).toFixed(0));
 
 store.dispatch({
   type: "NEW_NOTE",
@@ -28,14 +30,7 @@ const addNote = (event) => {
   event.preventDefault();
   const content = event.target.note.value;
   event.target.note.value = "";
-  store.dispatch({
-    type: "NEW_NOTE",
-    payload: {
-      content,
-      important: false,
-      id: generateId(),
-    },
-  });
+  store.dispatch(createNote(content));
 };
 function App() {
   return (
@@ -48,12 +43,7 @@ function App() {
         {store.getState().map((note) => (
           <li
             key={note.id}
-            onClick={() => {
-              store.dispatch({
-                type: "TOGGLE_IMPORTANCE",
-                payload: { id: note.id },
-              });
-            }}
+            onClick={() => store.dispatch(toggleImportanceOf(note.id))}
           >
             {note.content}{" "}
             <strong>{note.important ? "important" : "not important"}</strong>
