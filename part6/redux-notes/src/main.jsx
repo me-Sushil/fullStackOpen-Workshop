@@ -9,6 +9,7 @@ createRoot(document.getElementById("root")).render(
     <App />
   </Provider>
 );
+
 // const myRoot = createRoot(document.getElementById("root"));
 // function renderApp() {
 //   myRoot.render(<App />);
