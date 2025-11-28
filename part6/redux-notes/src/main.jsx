@@ -1,18 +1,15 @@
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import noteReducer from "./reducers/noteReducer";
 import "./index.css";
-
-export const store = createStore(noteReducer);
-
+import store from './store'
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <App />
   </Provider>
 );
+
 // const myRoot = createRoot(document.getElementById("root"));
 // function renderApp() {
 //   myRoot.render(<App />);
