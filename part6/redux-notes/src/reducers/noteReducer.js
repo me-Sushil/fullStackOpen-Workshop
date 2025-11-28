@@ -23,7 +23,7 @@ const noteSlice = createSlice({
       console.log("createNote state", current(state));
 
       const content = action.payload;
-      state.push({
+     return state.concat({
         content,
         important: false,
         id: generateId(),
