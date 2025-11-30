@@ -9,6 +9,16 @@
       "content": "state changes are made with actions",
       "important": false,
       "id": 2
+    },
+    {
+      "id": "d8e6",
+      "content": "this is new notes",
+      "important": true
+    },
+    {
+      "id": "8547",
+      "content": "This note is after onSuccess",
+      "important": true
     }
   ]
 }
