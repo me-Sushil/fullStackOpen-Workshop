@@ -1,34 +1,42 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+// import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-const generateId = () => Number((Math.random() * 1000000).toFixed(0));
-const initialState = [
-  {
-    content: "reducer defines how redux store works",
-    important: true,
-    id: 1,
-  },
-  {
-    content: "state of store can contain any data",
-    important: false,
-    id: 2,
-  },
-];
+import { getAll } from "../services/notes";
+import { postNewNote } from "../services/notes";
+
+// const generateId = () => Number((Math.random() * 1000000).toFixed(0));
+// const initialState = [
+//   {
+//     content: "reducer defines how redux store works",
+//     important: true,
+//     id: 3,
+//   },
+//   {
+//     content: "state of store can contain any data",
+//     important: false,
+//     id: 4,
+//   },
+// ];
 
 const noteSlice = createSlice({
   name: "notes",
-  initialState,
+  initialState: [],
   reducers: {
-    createNote(state, action) {
-      console.log("createNote action", action);
-      console.log("createNote state", current(state));
+    // createNote(state, action) {
+    //   console.log("createNote action", action);
+    //   console.log("createNote state", current(state));
 
-      const content = action.payload;
-     return state.concat({
-        content,
-        important: false,
-        id: generateId(),
-      });
+    //   const content = action.payload;
+    //   return state.concat({
+    //     content,
+    //     important: false,
+    //     id: generateId(),
+    //   });
+    // },
+    addAllNotes(state, action) {
+      return state.concat(action.payload);
     },
+
     toggleImportanceOf(state, action) {
       console.log("toggleImportance action", action);
       const id = action.payload;
@@ -41,7 +49,24 @@ const noteSlice = createSlice({
     },
   },
 });
-export const { createNote, toggleImportanceOf } = noteSlice.actions;
+export const { createNote, toggleImportanceOf, addAllNotes } =
+  noteSlice.actions;
+
+export const getAndAddAllNotes = () => {
+  const getNotesFromAxiosAndDispatch = async (dispatch) => {
+    const allNotes = await getAll();
+    dispatch(addAllNotes(allNotes));
+  };
+
+  return getNotesFromAxiosAndDispatch;
+};
+export const postAndAddAllNotes = (content) => {
+  const postNotesFromAxiosAndDispatch = async (dispatch) => {
+    const newNote = await postNewNote(content);
+    dispatch(addAllNotes(newNote));
+  };
+  return postNotesFromAxiosAndDispatch;
+};
 export default noteSlice.reducer;
 // const noteReducer = (state = initialState, action) => {
 //   switch (action.type) {
@@ -79,5 +104,3 @@ export default noteSlice.reducer;
 //     payload: { id },
 //   };
 // };
-
-

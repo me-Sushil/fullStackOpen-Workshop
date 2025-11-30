@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { createNote } from "../reducers/noteReducer";
+import { postAndAddAllNotes } from "../reducers/noteReducer";
 
 const NoteForm = () => {
   const dispatch = useDispatch();
@@ -8,7 +8,9 @@ const NoteForm = () => {
     event.preventDefault();
     const content = event.target.note.value;
     event.target.note.value = "";
-    dispatch(createNote(content));
+    // postNewNote(content).then((data) => dispatch(addAllNotes(data)));
+    dispatch(postAndAddAllNotes(content));
+
   };
 
   return (
