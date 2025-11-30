@@ -1,27 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-
+import { getAll } from "./services/requests";
 const App = () => {
-  //   const result = useQuery({
-  //     queryKey: ["notes"],
-  //     queryFn: async () => {
-  //       await axios
-  //         .get("http://localhost:3001/notes")
-  //         .then((response) => response.data);
-  //     },
-  //   });
-  //   if (result.isLoading) {
-  //     return <div>loading data...</div>;
-  //   }
   const result = useQuery({
     queryKey: ["notes"],
-    queryFn: async () => {
-      const response = await axios.get("http://localhost:3001/notes");
-      return response.data
-    },
+    queryFn: getAll,
   });
 
-     console.log(result, " this is query data");
+  console.log(result, " this is query data");
 
   if (result.isLoading) {
     return <div>loading data...</div>;
