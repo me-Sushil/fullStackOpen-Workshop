@@ -5,12 +5,12 @@ const initialState = [
   {
     content: "reducer defines how redux store works",
     important: true,
-    id: 1,
+    id: 3,
   },
   {
     content: "state of store can contain any data",
     important: false,
-    id: 2,
+    id: 4,
   },
 ];
 
@@ -23,12 +23,16 @@ const noteSlice = createSlice({
       console.log("createNote state", current(state));
 
       const content = action.payload;
-     return state.concat({
+      return state.concat({
         content,
         important: false,
         id: generateId(),
       });
     },
+    addAllNotes(state, action) {
+      return state.concat(action.payload);
+    },
+
     toggleImportanceOf(state, action) {
       console.log("toggleImportance action", action);
       const id = action.payload;
@@ -41,7 +45,8 @@ const noteSlice = createSlice({
     },
   },
 });
-export const { createNote, toggleImportanceOf } = noteSlice.actions;
+export const { createNote, toggleImportanceOf, addAllNotes } =
+  noteSlice.actions;
 export default noteSlice.reducer;
 // const noteReducer = (state = initialState, action) => {
 //   switch (action.type) {
@@ -79,5 +84,3 @@ export default noteSlice.reducer;
 //     payload: { id },
 //   };
 // };
-
-
