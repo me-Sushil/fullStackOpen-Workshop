@@ -6,19 +6,23 @@ const App = () => {
   const result = useQuery({
     queryKey: ["notes"],
     queryFn: getAll,
+    refetchOnWindowFocus: false,
   });
 
   const newNoteMutation = useMutation({
     mutationFn: createNote,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
+    onSuccess: (newNote) => {
+      const notes = queryClient.getQueryData(["notes"]);
+      queryClient.setQueryData(["notes"], notes.concat(newNote));
+      //   queryClient.invalidateQueries({ queryKey: ["notes"] });
     },
   });
 
   const updateNoteMutation = useMutation({
     mutationFn: updateNotes,
-    onSuccess: () => {
-      queryClient.invalidateQueries("notes");
+    onSuccess: (newNote) => {
+      const notes = queryClient.getQueryData(["notes"]);
+      queryClient.setQueryData(["notes"], notes.concat(newNote));
     },
   });
 

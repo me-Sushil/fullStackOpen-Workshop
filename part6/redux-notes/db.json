@@ -2,13 +2,13 @@
   "notes": [
     {
       "content": "the app state is in redux store",
-      "important": true,
-      "id": 1
+      "important": false,
+      "id": "1"
     },
     {
       "content": "state changes are made with actions",
       "important": false,
-      "id": 2
+      "id": "2"
     },
     {
       "id": "d8e6",
@@ -18,6 +18,41 @@
     {
       "id": "8547",
       "content": "This note is after onSuccess",
+      "important": true
+    },
+    {
+      "id": "2cf4",
+      "content": "khb  hqeoj hphref d[\\",
+      "important": true
+    },
+    {
+      "id": "5b4a",
+      "content": "hi",
+      "important": true
+    },
+    {
+      "id": "cdc3",
+      "content": "this is after optimization",
+      "important": true
+    },
+    {
+      "id": "f4c7",
+      "content": "now testing the new note",
+      "important": true
+    },
+    {
+      "id": "93dd",
+      "content": "this is testing the nrwn ",
+      "important": true
+    },
+    {
+      "id": "7fc8",
+      "content": "ok",
+      "important": true
+    },
+    {
+      "id": "19d2",
+      "content": "This is after optimization of add notes",
       "important": true
     }
   ]
