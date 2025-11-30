@@ -2,6 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { getAll } from "../services/notes";
+import { postNewNote } from "../services/notes";
 
 // const generateId = () => Number((Math.random() * 1000000).toFixed(0));
 // const initialState = [
@@ -59,7 +60,13 @@ export const getAndAddAllNotes = () => {
 
   return getNotesFromAxiosAndDispatch;
 };
-
+export const postAndAddAllNotes = (content) => {
+  const postNotesFromAxiosAndDispatch = async (dispatch) => {
+    const newNote = await postNewNote(content);
+    dispatch(addAllNotes(newNote));
+  };
+  return postNotesFromAxiosAndDispatch;
+};
 export default noteSlice.reducer;
 // const noteReducer = (state = initialState, action) => {
 //   switch (action.type) {
