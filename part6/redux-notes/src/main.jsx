@@ -1,19 +1,12 @@
 import { createRoot } from "react-dom/client";
 import App from "./ReactQueryApp";
-import { Provider } from "react-redux";
 import "./index.css";
-import store from './store'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <QueryClientProvider client={queryClient}>
+    <App/>
+  </QueryClientProvider>
 );
-
-// const myRoot = createRoot(document.getElementById("root"));
-// function renderApp() {
-//   myRoot.render(<App />);
-// }
-// renderApp();
-// store.subscribe(renderApp); //every time store value change that time
-// // myRender function call and this will render the app
