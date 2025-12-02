@@ -1,35 +1,45 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./components/Home";
+import Notes from "./components/Notes";
+import Users from "./components/Users";
+import Note from "./components/Note";
 
-// function App() {
-//   const [count, setCount] = useState(0)
+const App = ({ notes }) => {
+  const padding = {
+    padding: 5,
+  };
 
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
+  return (
+    <Router>
+      <div>
+        <Link style={padding} to="/">
+          home
+        </Link>
+        <Link style={padding} to="/notes">
+          notes
+        </Link>
+        <Link style={padding} to="/users">
+          users
+        </Link>
+      </div>
 
-// export default App
+      <Routes>
+        <Route
+          path="/notes/:id"
+          element={
+            <Note note={{ content: "hardcore", important: false, id: 22 }} />
+          }
+        />
+        <Route path="/notes" element={<Notes notes={notes} />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+
+      <div>
+        <i>Note app, Department of Computer Science 2024</i>
+      </div>
+    </Router>
+  );
+};
+
+export default App;

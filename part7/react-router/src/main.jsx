@@ -1,76 +1,28 @@
-// import { StrictMode } from 'react'
-// import { createRoot } from 'react-dom/client'
-// import './index.css'
-// import App from './App.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
 
-// createRoot(document.getElementById('root')).render(
-//   <StrictMode>
-//     <App />
-//   </StrictMode>,
-// )
-import { useState } from "react";
-import ReactDOM from "react-dom/client";
+const notes = [
+  {
+    id: 1,
+    content: "HTML is easy",
+    important: true,
+  },
+  {
+    id: 2,
+    content: "Browser can execute only JavaScript",
+    important: false,
+  },
+  {
+    id: 3,
+    content: "Most important methods of HTTP-protocol are GET and POST",
+    important: true,
+  },
+];
 
-const Home = () => (
-  <div>
-    {" "}
-    <h2>TKTL notes app</h2>{" "}
-  </div>
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <App notes={notes} />
+  </StrictMode>
 );
-
-const Notes = () => (
-  <div>
-    {" "}
-    <h2>Notes</h2>{" "}
-  </div>
-);
-
-const Users = () => (
-  <div>
-    {" "}
-    <h2>Users</h2>{" "}
-  </div>
-);
-
-const App = () => {
-  const [page, setPage] = useState("home");
-
-  const toPage = (page) => (event) => {
-    event.preventDefault();
-    setPage(page);
-  };
-
-  const content = () => {
-    if (page === "home") {
-      return <Home />;
-    } else if (page === "notes") {
-      return <Notes />;
-    } else if (page === "users") {
-      return <Users />;
-    }
-  };
-
-  const padding = {
-    padding: 5,
-  };
-
-  return (
-    <div>
-      <div>
-        <a href="" onClick={toPage("home")} style={padding}>
-          home
-        </a>
-        <a href="" onClick={toPage("notes")} style={padding}>
-          notes
-        </a>
-        <a href="" onClick={toPage("users")} style={padding}>
-          users
-        </a>
-      </div>
-
-      {content()}
-    </div>
-  );
-};
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
