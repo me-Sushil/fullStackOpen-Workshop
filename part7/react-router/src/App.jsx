@@ -24,12 +24,7 @@ const App = ({ notes }) => {
       </div>
 
       <Routes>
-        <Route
-          path="/notes/:id"
-          element={
-            <Note note={{ content: "hardcore", important: false, id: 22 }} />
-          }
-        />
+        <Route path="/notes/:id" element={<Note notes={notes} />} />
         <Route path="/notes" element={<Notes notes={notes} />} />
         <Route path="/users" element={<Users />} />
         <Route path="/" element={<Home />} />

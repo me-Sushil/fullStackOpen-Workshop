@@ -1,13 +1,12 @@
-
-import { Link } from "react-router-dom";
-const Note = ({ note }) => (
-  <div>
-    <h2>Single Note</h2>
-    
-        <li key={note.id}>
-          <Link to={`/notes/${note.id}`}>{note.content}</Link>
-        </li>
-    
-  </div>
-)
+import { Link, useParams } from "react-router-dom";
+const Note = ({ notes }) => {
+  const id = useParams().id;
+  const myNote = notes.find((note) => note.id == id);
+  return (
+    <div>
+      <h2>Single Note</h2>
+      <div>{myNote.content}</div>
+    </div>
+  );
+};
 export default Note;
