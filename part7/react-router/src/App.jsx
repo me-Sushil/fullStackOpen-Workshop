@@ -28,6 +28,8 @@ const App = ({ notes }) => {
         <Route path="/notes" element={<Notes notes={notes} />} />
         <Route path="/users" element={<Users />} />
         <Route path="/" element={<Home />} />
+        <Route path="/notes123" element={<Notes notes={notes} />} />
+
       </Routes>
 
       <div>
