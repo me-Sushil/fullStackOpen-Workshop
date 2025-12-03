@@ -8,17 +8,16 @@ const FormField = () => {
     <div>
       <form>
         name:
-        <input type={name.type} value={name.value} onChange={name.onChange} />
+        {/* <input type={name.type} value={name.value} onChange={name.onChange} /> */}
+        <input {...name} />
         <br />
         birthdate:
-        <input type={born.type} value={born.value} onChange={born.onChange} />
+        {/* <input type={born.type} value={born.value} onChange={born.onChange} /> */}
+        <input {...born} />
         <br />
         height:
-        <input
-          type={height.type}
-          value={height.value}
-          onChange={height.onChange}
-        />
+        {/* <input type={height.type} value={height.value} onChange={height.onChange}/> */}
+        <input {...height} />
       </form>
       <div>
         {name.value} {born.value} {height.value}
