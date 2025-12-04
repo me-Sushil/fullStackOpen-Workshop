@@ -1,0 +1,16 @@
+
+###
+post http://localhost:3001/api/notes
+content-type:application/json
+
+{
+    "content": "this is test second content"
+}
+
+###
+put http://localhost:3001/api/notes/1
+content-type:application/json
+
+{
+    "important": true
+}
