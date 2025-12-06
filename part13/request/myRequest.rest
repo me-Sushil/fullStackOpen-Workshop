@@ -2,9 +2,10 @@
 ###
 post http://localhost:3001/api/notes
 content-type:application/json
+authorization:  bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbCIsImlkIjoxLCJpYXQiOjE3NjUwMDU5ODh9.sFS1vdhpwG9UqOUJncuaQmlTj7fZEsJnyM-uVs99IvY
 
 {
-    "content": "this is test final content"
+    "content": "this is test with user id content"
 }
 
 
