@@ -4,9 +4,27 @@ post http://localhost:3001/api/notes
 content-type:application/json
 
 {
-    "content": "this is test second content"
+    "content": "this is test final content"
 }
 
+
+#####
+post http://localhost:3001/api/users
+content-type:application/json
+
+{
+    "username": "sushil",
+    "name":"sushil"
+}
+
+###########
+post http://localhost:3001/api/login
+content-type:application/json
+
+{
+    "username": "sushil",
+    "password":"secret"
+}
 ###
 put http://localhost:3001/api/notes/1
 content-type:application/json
