@@ -3,9 +3,27 @@ const jwt = require("jsonwebtoken");
 const { SECRET } = require("../util/config");
 const { Note } = require("../models");
 const { User } = require("../models");
+const { Op } = require("sequelize");
 
 router.get("/", async (req, res) => {
-  const notes = await Note.findAll();
+  let important = {
+    [Op.in]: [true, false],
+  };
+  if (req.query.important) {
+    important = req.query.important === "true";
+  }
+
+  // const notes = await Note.findAll();
+  const notes = await Note.findAll({
+    attributes: { exclude: ["userId"] },
+    include: {
+      model: User,
+      attributes: ["name", "username"],
+    },
+    where: {
+      important: important,
+    },
+  });
   res.json(notes);
 });
 
