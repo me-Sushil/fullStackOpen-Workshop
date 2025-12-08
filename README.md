@@ -1,6 +1,6 @@
 📚 Full Stack Open — Deep Dive into Modern Web Application Development<br>
 
-This repository contains my completed workshop solutions for the Full Stack Open course.<br>
+This repository contains my completed workshop solutions for the Full Stack Open course, organized by the University of Helsinki..<br>
 The course is one of the most comprehensive and respected resources for learning modern web development, covering both frontend and backend technologies.<br>
 
 🚀 About the Course<br>
