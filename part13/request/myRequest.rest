@@ -2,9 +2,10 @@
 ###
 post http://localhost:3001/api/notes
 content-type:application/json
-authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbCIsImlkIjoxLCJpYXQiOjE3NjUwOTU1OTV9.bV7lWA0Ouaq4fD3eWSNVcEDQAiE3a3-ZwgESc65geCU
+authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1amFuIiwiaWQiOjEsImlhdCI6MTc2NTE3OTc1Nn0.iRuVRkjPZhf6S4iJ_RuEccANab-3yYBmLhlzzTOsZH8
+
 {
-    "content": "sushil this is test with user id content",
+    "content": "sujan 1 this is test with user id content",
     "important":true
 }
 
@@ -14,8 +15,8 @@ post http://localhost:3001/api/users
 content-type:application/json
 
 {
-    "username": "sujan",
-    "name":"sujan",
+    "username": "sudesh",
+    "name":"sudesh",
     "admin":false,
     "disabled":false
 }
@@ -25,7 +26,7 @@ post http://localhost:3001/api/login
 content-type:application/json
 
 {
-    "username": "sushil",
+    "username": "sujan",
     "password":"secret"
 }
 ###
@@ -34,4 +35,14 @@ content-type:application/json
 
 {
     "important": true
+}
+
+
+#####
+put http://localhost:3001/api/users/sudesh
+content-type:application/json
+authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbCIsImlkIjoxLCJpYXQiOjE3NjUwOTU1OTV9.bV7lWA0Ouaq4fD3eWSNVcEDQAiE3a3-ZwgESc65geCU
+
+{
+    "disabled":false
 }
